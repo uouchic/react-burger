@@ -1,20 +1,12 @@
 import React from 'react';
-import appStyles from './app.module.css';
+import styles from './app.module.css';
 
-import AppHeader from '../app-header/app-header'
-
-
+import AppHeader from '../app-header/app-header';
 
 function App() {
   return (
-    <div className={appStyles.app}>
-
- 
-
-      <AppHeader/>
-      
-
-      
+    <div className={styles.app}>
+      <AppHeader />
     </div>
   );
 }
