@@ -1,0 +1,33 @@
+.section {
+  max-width: 600px;
+}
+
+.section2 {
+    max-width: 600px;
+    height: 556px;
+    overflow-y: scroll;
+  }
+  
+
+.title {
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
+.subtitle {
+  width: 100%;
+  text-align: center;
+}
+
+.shadow_bold {
+  box-shadow: 0px -2px 0px 0px #4c4cff inset;
+}
+
+.shadow {
+  box-shadow: 0px -1px 0px 0px #2f2f37 inset;
+}
