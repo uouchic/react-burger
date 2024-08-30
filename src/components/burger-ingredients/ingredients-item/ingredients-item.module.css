@@ -1,24 +1,17 @@
 .row {
-    display: flex;
-    justify-content: center;
-  }
+  display: flex;
+  justify-content: center;
+}
 
-  .cart {
-    position: relative;
-    max-width: 272px;
-    
-  }
+.cart {
+  position: relative;
+  max-width: 272px;
+}
 
+.cart_image {
+  display: block;
+}
 
-  .cart_image {
-    display: block;
-    
-    
-  }
-
-
-  .cart_name {
-    text-align: center;
-    
-    
-  }
+.cart_name {
+  text-align: center;
+}

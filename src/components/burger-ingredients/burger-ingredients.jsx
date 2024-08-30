@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './burger-ingredients.module.css';
 
 import IngredientsGroup from '../burger-ingredients/ingredients-group/ingredients-group';
@@ -7,8 +8,8 @@ import {} from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerIngredients(props) {
   return (
-    <>
-      <section className={`${styles.section} pt-10`}>
+    <div>
+      <section className={`${styles.section} mt-10`}>
         <h1 className='text text_type_main-large mb-5'>Соберите бургер</h1>
         <div className={`${styles.row}`}>
           <h2
@@ -26,13 +27,28 @@ function BurgerIngredients(props) {
         </div>
       </section>
 
-      <section className={`${styles.section2} pt-10 custom-scroll`}>
-        <IngredientsGroup title={'Булки'} ingridients={props.ingridients.filter((item) => item.type === 'bun')}/>
-        <IngredientsGroup title={'Соусы'} ingridients={props.ingridients.filter((item) => item.type === 'sauce')}/>
-        <IngredientsGroup title={'Начинка'} ingridients={props.ingridients.filter((item) => item.type === 'main')}/>
+      <section className={`${styles.section2} mt-10 custom-scroll`}>
+        <IngredientsGroup
+          title={'Булки'}
+          ingridients={props.ingridients.filter((item) => item.type === 'bun')}
+        />
+        <IngredientsGroup
+          title={'Соусы'}
+          ingridients={props.ingridients.filter(
+            (item) => item.type === 'sauce'
+          )}
+        />
+        <IngredientsGroup
+          title={'Начинка'}
+          ingridients={props.ingridients.filter((item) => item.type === 'main')}
+        />
       </section>
-    </>
+    </div>
   );
+
+  BurgerIngredients.propTypes = {
+    ingridients: PropTypes.array,
+  };
 }
 
 export default BurgerIngredients;
