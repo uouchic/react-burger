@@ -1,0 +1,10 @@
+.order_number {
+    text-align: center;
+}
+
+
+.order_img {
+    display: block;
+    margin: 0 auto;
+    margin-top: 60px;
+}

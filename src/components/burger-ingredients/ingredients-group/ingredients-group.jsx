@@ -13,16 +13,20 @@ function IngredientsGroup(props) {
 
       <div className={`${styles.row} pt-6 pr-2 pb-10 pl-4`}>
         {props.ingridients.map((item) => (
-          <IngredientsItem key={item._id} ingridient={item} />
+          <IngredientsItem
+            key={item._id}
+            ingridient={item}
+            onIngClick={props.onIngClick}
+          />
         ))}
       </div>
     </>
   );
-
-  IngredientsGroup.propTypes = {
-    ingridients: PropTypes.array,
-    title: PropTypes.string,
-  };
 }
+
+IngredientsGroup.propTypes = {
+  ingridients: PropTypes.array,
+  title: PropTypes.string,
+};
 
 export default IngredientsGroup;
