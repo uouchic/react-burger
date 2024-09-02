@@ -50,6 +50,9 @@ function App() {
       try {
         setLoading(true);
         const res = await fetch(BASE_URL);
+        if (!res.ok) {
+          return Promise.reject(`Ошибка: ${res.status}`);
+        }
         const ingredients = await res.json();
         setIngridients(ingredients.data);
         setLoading(false);

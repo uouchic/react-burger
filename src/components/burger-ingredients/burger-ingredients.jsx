@@ -67,9 +67,29 @@ function BurgerIngredients(props) {
     </>
   );
 
-  BurgerIngredients.propTypes = {
-    ingridients: PropTypes.array,
-  };
+
 }
+
+
+BurgerIngredients.propTypes = {
+  ingridients: PropTypes.shape({
+    image: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.string,
+  })
+};
+
+BurgerIngredients.propTypes = {
+  selectIngridient: PropTypes.shape({
+    image: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.string,
+    calories: PropTypes.string,
+    proteins: PropTypes.string,
+    carbohydrates: PropTypes.string,
+    fat: PropTypes.string,
+  })
+};
+
 
 export default BurgerIngredients;

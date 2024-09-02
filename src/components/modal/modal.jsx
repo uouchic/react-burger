@@ -21,4 +21,8 @@ function Modal(props) {
   );
 }
 
+Modal.propTypes = {
+  title: PropTypes.string,
+};
+
 export default Modal;

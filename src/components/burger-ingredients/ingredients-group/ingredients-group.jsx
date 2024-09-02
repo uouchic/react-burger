@@ -25,8 +25,12 @@ function IngredientsGroup(props) {
 }
 
 IngredientsGroup.propTypes = {
-  ingridients: PropTypes.array,
   title: PropTypes.string,
+  ingridients: PropTypes.shape({
+    image: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.string,
+  })
 };
 
 export default IngredientsGroup;
