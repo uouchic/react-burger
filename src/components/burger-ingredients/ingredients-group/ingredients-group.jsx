@@ -11,12 +11,11 @@ function IngredientsGroup(props) {
     <>
       <h3 className='text text_type_main-medium'>{props.title}</h3>
 
-      <div className={`${styles.row} pt-6 pr-2 pb-10 pl-4`}>
+      <div className={`${styles.row} pt-6 pr-4 pb-10 pl-2`}>
         {props.ingridients.map((item) => (
           <IngredientsItem
             key={item._id}
             ingridient={item}
-            onIngClick={props.onIngClick}
           />
         ))}
       </div>

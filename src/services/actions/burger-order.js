@@ -1,0 +1,3 @@
+export const GET_BURGER_ORDER = 'GET_BURGER_ORDER';
+
+export const CLOSE_BURGER_ORDER = 'CLOSE_BURGER_ORDER';
