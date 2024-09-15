@@ -2,10 +2,10 @@ import { SELECT_BURGER_INGREDIENT, DELETE_BURGER_INGREDIENT } from '../actions/b
 
 const initialState = {
     name: '',
-    proteins: '',
-    fat: '',
-    carbohydrates: '',
-    calories: '',
+    proteins: null,
+    fat: null,
+    carbohydrates: null,
+    calories: null,
     image: '',
 }
 

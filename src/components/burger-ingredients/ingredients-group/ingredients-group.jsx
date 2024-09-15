@@ -28,7 +28,7 @@ function IngredientsGroup(props) {
 
 IngredientsGroup.propTypes = {
   title: PropTypes.string,
-  ingridients: PropTypes.shape(IngredientType)
+  ingridients: PropTypes.array,
 };
 
 export default IngredientsGroup;
