@@ -2,6 +2,8 @@ import React from 'react';
 
 import { getOrderBurger } from '../../services/actions/burger-order';
 
+import PropTypes from 'prop-types';
+
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
@@ -163,5 +165,8 @@ function BurgerConstructor(props) {
     </>
   );
 }
+BurgerConstructor.propTypes = {
+  onClose: PropTypes.func,
+};
 
 export default BurgerConstructor;
