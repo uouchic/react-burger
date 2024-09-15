@@ -1,15 +1,38 @@
-.modal_ingr {
-  width: 720px;
-  margin: 0 auto;
-  background-color: rgba(0, 0, 0);
-  border-radius: 40px;
-  position: relative;
-  background-color: #1c1c21;
-}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    visibility: hidden;    
+    z-index: 2;  
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+  }
 
-.modal_close {
-  cursor: pointer;
-  position: absolute;
-  top: 40px;
-  right: 40px;
-}
+
+  .overlay_opened {
+    visibility: visible;
+    opacity: 1;
+  }
+
+
+  .modal_ingr {
+    width: 720px;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0);
+    border-radius: 40px;
+    position: relative;
+    background-color: #1c1c21;
+  }
+  
+  .modal_close {
+    cursor: pointer;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+  }
+  

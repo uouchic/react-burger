@@ -6,9 +6,8 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import styles from './burger-constructor.module.css';
-import Modal from '../modal/modal';
 
-import ModalOverlay from '../modal-overlay/modal-overlay';
+import Modal from '../modal/modal';
 
 import OrderDetails from '../burger-constructor/order-details/order-details';
 
@@ -158,11 +157,9 @@ function BurgerConstructor(props) {
         </section>
       </div>
 
-      <ModalOverlay ing={orderNumber} onClose={props.onClose}>
-        <Modal title={''} onClose={props.onClose}>
-          <OrderDetails orderNumber={orderNumber} />
-        </Modal>
-      </ModalOverlay>
+      <Modal ing={orderNumber} onClose={props.onClose} title={''}>
+        <OrderDetails orderNumber={orderNumber} />
+      </Modal>
     </>
   );
 }

@@ -12,8 +12,6 @@ import IngredientsGroup from '../burger-ingredients/ingredients-group/ingredient
 
 import Modal from '../modal/modal';
 
-import ModalOverlay from '../modal-overlay/modal-overlay';
-
 import IngredientDetails from '../burger-ingredients/ingredients-details/ingredients-details';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -99,11 +97,12 @@ function BurgerIngredients(props) {
         </section>
       </div>
 
-      <ModalOverlay ing={selectBurgerIngredient.image} onClose={props.onClose}>
-        <Modal title={'Детали ингридиента'} onClose={props.onClose}>
-          <IngredientDetails ing={selectBurgerIngredient} />
-        </Modal>
-      </ModalOverlay>
+      <Modal
+        ing={selectBurgerIngredient.image}
+        onClose={props.onClose}
+        title={'Детали ингридиента'}>
+        <IngredientDetails ing={selectBurgerIngredient} />
+      </Modal>
     </>
   );
 }
