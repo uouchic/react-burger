@@ -1,12 +1,16 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+
+import IngredientType from '../../../utils/types'
+
+
 import styles from './ingredients-details.module.css';
 
 function IngredientDetails(props) {
   return (
     <>
-      <img className={`${styles.modal_img}`} src={props.ing.image} alt='' />
+      <img className={`${styles.modal_img}`} src={props.ing.image} alt={props.ing.name} />
       <p className={`${styles.modal_name} text text_type_main-medium mt-4`}>
         {props.ing.name}
       </p>
@@ -51,14 +55,7 @@ function IngredientDetails(props) {
 }
 
 IngredientDetails.propTypes = {
-  ing: PropTypes.shape({
-    image: PropTypes.string,
-    name: PropTypes.string,
-    calories: PropTypes.string,
-    proteins: PropTypes.string,
-    carbohydrates: PropTypes.string,
-    fat: PropTypes.string,
-  })
+  ing: PropTypes.shape(IngredientType)
 };
 
 export default IngredientDetails;

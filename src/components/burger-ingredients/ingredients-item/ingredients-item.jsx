@@ -1,5 +1,7 @@
 import React from 'react';
 
+import IngredientType from '../../../utils/types' 
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useDrag } from 'react-dnd';
@@ -11,6 +13,8 @@ import {
   CurrencyIcon,
   Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+
+import { SELECT_BURGER_INGREDIENT } from '../../../services/actions/burger-ingredient';
 
 function IngredientsItem(props) {
 
@@ -25,7 +29,7 @@ function IngredientsItem(props) {
   function handleClick() {
 
     dispatch({
-      type: 'SELECT_BURGER_INGREDIENT',
+      type: SELECT_BURGER_INGREDIENT,
       name: props.ingridient.name,
       proteins: props.ingridient.proteins,
       fat: props.ingridient.fat,
@@ -75,12 +79,10 @@ function IngredientsItem(props) {
     </article>
   );
 }
+
+
 IngredientsItem.propTypes = {
-  ingridient: PropTypes.shape({
-    image: PropTypes.string,
-    name: PropTypes.string,
-    price: PropTypes.string,
-  }),
+  ingridient: PropTypes.shape(IngredientType),
 };
 
 export default IngredientsItem;

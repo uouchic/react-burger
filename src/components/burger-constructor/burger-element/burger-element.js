@@ -6,11 +6,13 @@ import { useDispatch } from 'react-redux';
 
 import { useDrop, useDrag } from 'react-dnd';
 
-
+import { DEL_BURGER_ELEMENT } from '../../../services/actions/burger-element';
 
 import {
     ConstructorElement, DragIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
+
+import styles from './burger-element.module.css';
 
 function BurgerElement(props) {
 
@@ -27,7 +29,7 @@ function BurgerElement(props) {
 
     const handleClose = () => {
         dispatch({
-            type: 'DEL_BURGER_ELEMENT',
+            type: DEL_BURGER_ELEMENT,
             id: props.burgerElement.namber,
 
         });
@@ -97,7 +99,7 @@ function BurgerElement(props) {
     drag(drop(ref))
 
     return (
-        <div ref={ref} style={{ width: '100%' }}>
+        <div ref={ref} className={styles.wrap}>
 
             <DragIcon type='primary' />
 

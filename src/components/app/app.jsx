@@ -13,18 +13,24 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 
 import { getIngredients } from '../../services/actions/burger-ingredients';
 
+
+import { CLOSE_BURGER_ORDER } from '../../services/actions/burger-order';
+
+import { DELETE_BURGER_INGREDIENT } from '../../services/actions/burger-ingredient';
+
 function App() {
+  
   const dispatch = useDispatch();
 
   function closeModalOrder() {
     dispatch({
-      type: 'CLOSE_BURGER_ORDER',
+      type: CLOSE_BURGER_ORDER,
     });
   }
 
   function closeModal() {
     dispatch({
-      type: 'DELETE_BURGER_INGREDIENT',
+      type: DELETE_BURGER_INGREDIENT,
     });
   }
 

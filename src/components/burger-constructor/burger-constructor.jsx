@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { getOrderBurger } from '../../services/actions/burger-order';
+
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
@@ -18,6 +20,12 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import {
+  ADD_BURGER_ELEMENT,
+  ADD_BUN_ELEMENT,
+  SORT_BURGER_ELEMENT,
+} from '../../services/actions/burger-element';
+
 function BurgerConstructor(props) {
   const dispatch = useDispatch();
 
@@ -31,7 +39,7 @@ function BurgerConstructor(props) {
     accept: ['main', 'sauce'],
     drop(burgerElement) {
       dispatch({
-        type: 'ADD_BURGER_ELEMENT',
+        type: ADD_BURGER_ELEMENT,
         burgerElement: {
           ...burgerElement,
           namber: Math.round(Math.random() * 10000),
@@ -44,7 +52,7 @@ function BurgerConstructor(props) {
     accept: 'bun',
     drop(bun) {
       dispatch({
-        type: 'ADD_BUN_ELEMENT',
+        type: ADD_BUN_ELEMENT,
         bun: bun,
       });
     },
@@ -54,7 +62,7 @@ function BurgerConstructor(props) {
     accept: 'bun',
     drop(bun) {
       dispatch({
-        type: 'ADD_BUN_ELEMENT',
+        type: ADD_BUN_ELEMENT,
         bun: bun,
       });
     },
@@ -78,7 +86,7 @@ function BurgerConstructor(props) {
     newCards.splice(dragIndex, 1);
     newCards.splice(hoverIndex, 0, dragCard);
     dispatch({
-      type: 'SORT_BURGER_ELEMENT',
+      type: SORT_BURGER_ELEMENT,
       newCards: newCards,
     });
   };
@@ -89,29 +97,8 @@ function BurgerConstructor(props) {
   arrOrder.push(bun._id);
   arrOrder.unshift(bun._id);
 
-  function getOrderBurger() {
-    return fetch('https://norma.nomoreparties.space/api/orders', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        ingredients: arrOrder,
-      }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          return Promise.reject(`Ошибка: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((order) => {
-        dispatch({
-          type: 'GET_BURGER_ORDER',
-          orderNumber: order.order.number,
-        });
-      })
-      .catch((err) => console.log(err));
+  function onClick() {
+    dispatch(getOrderBurger(arrOrder));
   }
 
   return (
@@ -123,7 +110,7 @@ function BurgerConstructor(props) {
               extraClass={'ml-8'}
               type='top'
               isLocked={true}
-              text={bun.name}
+              text={bun.name ? `${bun.name} (верх)` : bun.name}
               price={bun.price}
               thumbnail={bun.image}
             />
@@ -133,7 +120,7 @@ function BurgerConstructor(props) {
             ref={dropIngredients}
             className={`${styles.wrap_items} mt-4 mb-4`}>
             {burgerElement.map((burgerElement, index) => (
-              <div className={`${styles.wrap_item}`}>
+              <div key={burgerElement.namber} className={`${styles.wrap_item}`}>
                 <BurgerElement
                   index={index}
                   moveCard={moveCard}
@@ -148,7 +135,7 @@ function BurgerConstructor(props) {
               extraClass={'ml-8 mb-10'}
               type='bottom'
               isLocked={true}
-              text={bun.name}
+              text={bun.name ? `${bun.name} (низ)` : bun.name}
               price={bun.price}
               thumbnail={bun.image}
             />
@@ -160,7 +147,7 @@ function BurgerConstructor(props) {
             <CurrencyIcon type='primary' />
 
             <Button
-              onClick={getOrderBurger}
+              onClick={onClick}
               htmlType='button'
               type='primary'
               size='large'
