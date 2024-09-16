@@ -159,9 +159,11 @@ function BurgerConstructor(props) {
         </section>
       </div>
 
-      <Modal ing={orderNumber} onClose={props.onClose} title={''}>
-        <OrderDetails orderNumber={orderNumber} />
-      </Modal>
+      {orderNumber && (
+        <Modal ing={orderNumber} onClose={props.onClose} title={''}>
+          <OrderDetails orderNumber={orderNumber} />
+        </Modal>
+      )}
     </>
   );
 }

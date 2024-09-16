@@ -97,12 +97,11 @@ function BurgerIngredients(props) {
         </section>
       </div>
 
-      <Modal
-        ing={selectBurgerIngredient.image}
-        onClose={props.onClose}
-        title={'Детали ингридиента'}>
-        <IngredientDetails ing={selectBurgerIngredient} />
-      </Modal>
+      {selectBurgerIngredient.image && (
+        <Modal onClose={props.onClose} title={'Детали ингридиента'}>
+          <IngredientDetails ing={selectBurgerIngredient} />
+        </Modal>
+      )}
     </>
   );
 }

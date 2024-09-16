@@ -1,3 +1,5 @@
+import BASE_URL from '../../utils/base-url'
+
 import checkResponse from  '../../utils/check-response'
 
 export const GET_BURGER_ORDER = 'GET_BURGER_ORDER';
@@ -11,7 +13,7 @@ export function getOrderBurger(arrOrder) {
     return function (dispatch) {
 
         function getOrderBurgerData(arrOrder) {
-            return fetch('https://norma.nomoreparties.space/api/orders', {
+            return fetch(`${BASE_URL}/orders`, {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
