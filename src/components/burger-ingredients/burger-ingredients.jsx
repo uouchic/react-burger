@@ -97,6 +97,8 @@ function BurgerIngredients(props) {
         </section>
       </div>
 
+      
+
       {selectBurgerIngredient.image && (
         <Modal onClose={props.onClose} title={'Детали ингридиента'}>
           <IngredientDetails ing={selectBurgerIngredient} />

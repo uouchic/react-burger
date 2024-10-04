@@ -1,6 +1,10 @@
 import React from 'react';
 
+import { useState } from 'react';
+
 import { getOrderBurger } from '../../services/actions/burger-order';
+
+import { useNavigate } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
 
@@ -15,6 +19,8 @@ import OrderDetails from '../burger-constructor/order-details/order-details';
 
 import BurgerElement from './burger-element/burger-element';
 
+import Preloader from '../preloader/preloader';
+
 import {
   ConstructorElement,
   Button,
@@ -27,13 +33,22 @@ import {
   SORT_BURGER_ELEMENT,
 } from '../../services/actions/burger-element';
 
+import {
+  LOADING_BURGER_ORDER,
+} from '../../services/actions/burger-order';
+
 function BurgerConstructor(props) {
+
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
-  const { burgerElement, bun, orderNumber } = useSelector((store) => ({
+  const { burgerElement, bun, orderNumber, user, orderLoading } = useSelector((store) => ({
     burgerElement: store.burgerElements.burgerElement,
     bun: store.burgerElements.bun,
     orderNumber: store.orderBurger.orderNumber,
+    user: store.userRegister.user,
+    orderLoading: store.orderBurger.orderLoading,
   }));
 
   const [, dropIngredients] = useDrop({
@@ -98,8 +113,20 @@ function BurgerConstructor(props) {
   arrOrder.push(bun._id);
   arrOrder.unshift(bun._id);
 
+
+  function handleOrder() {
+    dispatch(getOrderBurger(arrOrder))
+    dispatch({
+      type: LOADING_BURGER_ORDER,
+      loading: true,
+  });
+
+  }
+
+  
+
   function onClick() {
-    dispatch(getOrderBurger(arrOrder));
+    user ? handleOrder() : navigate('/login');
   }
 
   return (
@@ -159,9 +186,9 @@ function BurgerConstructor(props) {
         </section>
       </div>
 
-      {orderNumber && (
-        <Modal ing={orderNumber} onClose={props.onClose} title={''}>
-          <OrderDetails orderNumber={orderNumber} />
+      {orderLoading && (
+        <Modal onClose={props.onClose} title={''}>
+          {orderNumber ? <OrderDetails orderNumber={orderNumber} /> : (<Preloader/>)}
         </Modal>
       )}
     </>

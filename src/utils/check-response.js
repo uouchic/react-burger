@@ -1,8 +1,10 @@
-function checkResponse(res) {
-    if (!res.ok) {
-        return Promise.reject(`Ошибка: ${res.status}`);
+
+function checkResponse(response) {
+    if (response.ok) {
+      return response.json();
     }
-    return res.json();
+  
+    return response.json().then((error) => Promise.reject(error));
 }
 
 export default checkResponse;
