@@ -117,6 +117,7 @@ export const reset = (resetData) => {
             token: resetData.token,
         }),
     })
+    .then((res) => checkResponse(res));
 
 };
 

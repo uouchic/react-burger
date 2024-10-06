@@ -11,22 +11,20 @@ import styles from './ingredientView.module.css';
 
 function IngredientView() {
 
-    const { allBurgerIngredients } = useSelector(
-        (store) => ({
-          allBurgerIngredients: store.burgerIngredients.allBurgerIngredients,
-        })
-      );
+    // const { allBurgerIngredients } = useSelector(
+    //     (store) => ({
+    //       allBurgerIngredients: store.burgerIngredients.allBurgerIngredients,
+    //     })
+    //   );
 
-      const { ingredientId } = useParams();
+    //   const { ingredientId } = useParams();
 
-      const objIng = allBurgerIngredients.filter((ing) => ing._id === ingredientId);
+    //   const objIng = allBurgerIngredients.filter((ing) => ing._id === ingredientId);
 
 
     return (
         <section className={styles.contain}>
-            {objIng.map((ingr) => <IngredientDetails ing={ingr} />)}
-
-            {/* <IngredientDetails ing={objIng[0]} /> */}
+            <IngredientDetails />
         </section>
     );
 }

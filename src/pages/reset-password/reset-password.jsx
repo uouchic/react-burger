@@ -21,9 +21,8 @@ function ResetPassword() {
 
   const { values, handleChange } = useForm();
 
-  function onClick() {
-    console.log(values);
-
+  function onClick(event) {
+    event.preventDefault();
     reset(values).then((res) => {
       localStorage.removeItem('resetPassword');
       navigate('/login');
@@ -38,11 +37,14 @@ function ResetPassword() {
     <section className={styles.contain}>
       <p className='text text_type_main-medium mb-6'>Восстановление пароля</p>
 
+      <form onSubmit={onClick} className={styles.item_center}>
+
       <PasswordInput
         placeholder={'Введите новый пароль'}
         name={'password'}
         onChange={handleChange}
         extraClass='mb-6'
+        value={values.password}
       />
       <Input
         type={'text'}
@@ -54,16 +56,19 @@ function ResetPassword() {
         errorText={'Ошибка'}
         size={'default'}
         extraClass='mb-6'
+        value={values.token}
       />
 
       <Button
         extraClass='mb-20'
-        htmlType='button'
+        htmlType='submit'
         type='primary'
-        size='medium'
-        onClick={onClick}>
+        size='medium'>
         Сохранить
       </Button>
+
+      </form>
+
       <div className={`${styles.wraptext} mb-4`}>
         <p className='text text_type_main-default text_color_inactive mr-2'>
           Вспомнили пароль?

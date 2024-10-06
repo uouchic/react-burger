@@ -1,7 +1,5 @@
 import React from 'react';
 
-import PropTypes from 'prop-types';
-
 import styles from './profile.module.css';
 
 import { NavLink } from 'react-router-dom';
@@ -9,8 +7,6 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { useDispatch } from 'react-redux';
-
-import { useForm } from '../../hooks/useForm';
 
 import {
   Input,
@@ -30,14 +26,26 @@ function Profile() {
     user: store.userRegister.user,
   }));
 
-  const { values, handleChange } = useForm();
+  const [values, setValues] = React.useState({ ...user, password: '' });
 
-  function onClick() {
+  const handleChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    setValues({ ...values, [name]: value });
+  };
+
+  function onClick(event) {
+    event.preventDefault();
     dispatch(updateUser(values));
   }
 
   function onClickExit() {
     dispatch(logoutUser());
+  }
+
+  function onCancel() {
+    setValues({ ...user, password: '' });
   }
 
   return (
@@ -73,9 +81,8 @@ function Profile() {
         </NavLink>
       </div>
 
-      <div>
+      <form onSubmit={onClick}>
         <Input
-          defaultValue={user.name}
           type={'text'}
           placeholder={'Имя'}
           icon={false}
@@ -85,37 +92,40 @@ function Profile() {
           size={'default'}
           extraClass='mb-6'
           onChange={handleChange}
+          value={values.name}
         />
         <EmailInput
-          defaultValue={user.email}
           name={'email'}
           isIcon={false}
           extraClass='mb-6'
           onChange={handleChange}
+          value={values.email}
         />
         <PasswordInput
           name={'password'}
           extraClass='mb-6'
           onChange={handleChange}
+          value={values.password}
         />
-        {values.name || values.email || values.password ? (
+        {values.name !== user.name ||
+        values.email !== user.email ||
+        values.password ? (
           <div className={styles.but_wrap}>
-            <Button htmlType='button' type='secondary' size='medium'>
+            <Button htmlType='button' type='secondary' size='medium' onClick={onCancel}>
               Отмена
             </Button>
 
             <Button
-              htmlType='button'
+              htmlType='submit'
               type='primary'
-              size='medium'
-              onClick={onClick}>
+              size='medium'>
               Сохранить
             </Button>
           </div>
         ) : (
           <></>
         )}
-      </div>
+      </form>
     </main>
   );
 }

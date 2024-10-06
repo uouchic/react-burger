@@ -10,10 +10,6 @@ import styles from './burger-ingredients.module.css';
 
 import IngredientsGroup from '../burger-ingredients/ingredients-group/ingredients-group';
 
-import Modal from '../modal/modal';
-
-import IngredientDetails from '../burger-ingredients/ingredients-details/ingredients-details';
-
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerIngredients(props) {
@@ -97,13 +93,7 @@ function BurgerIngredients(props) {
         </section>
       </div>
 
-      
 
-      {selectBurgerIngredient.image && (
-        <Modal onClose={props.onClose} title={'Детали ингридиента'}>
-          <IngredientDetails ing={selectBurgerIngredient} />
-        </Modal>
-      )}
     </>
   );
 }

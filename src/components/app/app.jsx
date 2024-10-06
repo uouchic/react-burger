@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Routes, Route } from 'react-router-dom';
 
@@ -22,6 +22,9 @@ import ResetPassword from '../../pages/reset-password/reset-password';
 import Profile from '../../pages/profile/profile';
 import IngredientView from '../../pages/ingredientView/ingredientView'
 
+import Modal from '../modal/modal';
+import IngredientDetails from '../burger-ingredients/ingredients-details/ingredients-details';
+
 import { getIngredients } from '../../services/actions/burger-ingredients';
 
 import { checkUserAuth } from '../../services/actions/userAuth'
@@ -41,8 +44,13 @@ import {
 function App() {
 
   const location = useLocation();
-
+  const navigate = useNavigate();
   const background = location.state && location.state.background;
+
+  const handleModalClose = () => {
+    // Возвращаемся к предыдущему пути при закрытии модалки
+    navigate(-1);
+  };
 
   // console.log(background);
 
@@ -129,6 +137,20 @@ function App() {
               element={<IngredientView />}
             />
           </Routes>
+
+
+          {background && (
+        <Routes>
+	        <Route
+	          path='/ingredients/:ingredientId'
+	          element={
+	            <Modal onClose={handleModalClose}>
+	              <IngredientDetails />
+	            </Modal>
+	          }
+	        />
+        </Routes>
+      )}
 
 
         

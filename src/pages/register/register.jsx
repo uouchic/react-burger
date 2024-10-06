@@ -19,30 +19,17 @@ function Register() {
 
   const dispatch = useDispatch();
 
-
-  // const [values, setValues] = React.useState({});
-
-  // const handleChange = (event) => {
-  //   const target = event.target;
-  //   const value = target.value;
-  //   const name = target.name;
-  //   setValues({...values, [name]: value});
-  // };
-
   const { values, handleChange } = useForm();
 
-  function onClick() {
+  function onClick(event) {
+    event.preventDefault();
     dispatch(registerUser(values));
-
-
   }
-
-
-  
 
   return (
     <section className={styles.contain}>
       <p className='text text_type_main-medium mb-6'>Регистрация</p>
+      <form onSubmit={onClick} className={styles.item_center}>
       <Input
         type={'text'}
         placeholder={'Имя'}
@@ -53,12 +40,14 @@ function Register() {
         errorText={'Ошибка'}
         size={'default'}
         extraClass='mb-6'
+        value={values.name}
       />
-      <EmailInput onChange={handleChange} name={'email'} isIcon={false} extraClass='mb-6' />
-      <PasswordInput onChange={handleChange} name={'password'} extraClass='mb-6' />
-      <Button extraClass='mb-20' htmlType='button' type='primary' size='medium' onClick={onClick}>
+      <EmailInput onChange={handleChange} name={'email'} isIcon={false} extraClass='mb-6' value={values.email} />
+      <PasswordInput onChange={handleChange} name={'password'} extraClass='mb-6' value={values.password} />
+      <Button extraClass='mb-20' htmlType='submit' type='primary' size='medium'>
         Зарегистрироваться
       </Button>
+      </form>
       <div className={`${styles.wraptext} mb-4`}>
         <p className='text text_type_main-default text_color_inactive mr-2'>
           Уже зарегистрированны?
