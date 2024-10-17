@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {SyntheticEvent} from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './forgot-password.module.css';
 
@@ -11,16 +11,16 @@ import { useForm } from '../../hooks/useForm';
 
 import { forgot } from '../../utils/api';
 
-function ForgotPassword() {
+function ForgotPassword(): React.JSX.Element {
   const navigate = useNavigate();
 
   const { values, handleChange } = useForm();
 
-  function onClick(event) {
+  function onClick(event: SyntheticEvent) {
     event.preventDefault();
     forgot(values).then((res) => {
       navigate('/reset-password', { replace: false });
-      localStorage.setItem('resetPassword', true);
+      localStorage.setItem('resetPassword', 'true');
     });
   }
 

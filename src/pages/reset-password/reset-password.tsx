@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {SyntheticEvent} from "react";
 import { Link } from 'react-router-dom';
 import styles from './reset-password.module.css';
 
@@ -15,13 +15,13 @@ import { useForm } from '../../hooks/useForm';
 
 import { reset } from '../../utils/api';
 
-function ResetPassword() {
+function ResetPassword(): React.JSX.Element {
 
  const navigate = useNavigate();
 
   const { values, handleChange } = useForm();
 
-  function onClick(event) {
+  function onClick(event: SyntheticEvent) {
     event.preventDefault();
     reset(values).then((res) => {
       localStorage.removeItem('resetPassword');
@@ -50,6 +50,7 @@ function ResetPassword() {
         type={'text'}
         onChange={handleChange}
         placeholder={'Введите код из письма'}
+        //@ts-ignore
         icon={false}
         name={'token'}
         error={false}

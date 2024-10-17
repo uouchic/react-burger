@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, {SyntheticEvent} from "react";
 import { Link } from 'react-router-dom';
 import styles from './register.module.css';
 
@@ -15,14 +16,15 @@ import {
 
 import { registerUser } from '../../services/actions/userAuth';
 
-function Register() {
+function Register(): React.JSX.Element {
 
   const dispatch = useDispatch();
 
   const { values, handleChange } = useForm();
 
-  function onClick(event) {
+  function onClick(event: SyntheticEvent) {
     event.preventDefault();
+    //@ts-ignore
     dispatch(registerUser(values));
   }
 
@@ -34,6 +36,7 @@ function Register() {
         type={'text'}
         placeholder={'Имя'}
         onChange={handleChange}
+        //@ts-ignore
         icon={false}
         name={'name'}
         error={false}

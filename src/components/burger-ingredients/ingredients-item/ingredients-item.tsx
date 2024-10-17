@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 
 import { useLocation } from 'react-router-dom';
 
-import IngredientType from '../../../utils/types';
+import { TIngridientProps } from '../../../utils/types'
 
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useDrag } from 'react-dnd';
 
-import PropTypes from 'prop-types';
 import styles from './ingredients-item.module.css';
 
 import {
@@ -18,30 +17,20 @@ import {
   Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { SELECT_BURGER_INGREDIENT } from '../../../services/actions/burger-ingredient';
+type TIngredientsItemProps = {
+  ingridient: TIngridientProps;
+};
 
-function IngredientsItem(props) {
+function IngredientsItem(props: TIngredientsItemProps): React.JSX.Element {
 
   const location = useLocation();
 
   const { burgerElements, bun } = useSelector((store) => ({
+     // @ts-ignore
     burgerElements: store.burgerElements.burgerElement,
+     // @ts-ignore
     bun: store.burgerElements.bun,
   }));
-
-  const dispatch = useDispatch();
-
-  function handleClick() {
-    dispatch({
-      type: SELECT_BURGER_INGREDIENT,
-      name: props.ingridient.name,
-      proteins: props.ingridient.proteins,
-      fat: props.ingridient.fat,
-      carbohydrates: props.ingridient.carbohydrates,
-      calories: props.ingridient.calories,
-      image: props.ingridient.image,
-    });
-  }
 
   const [, dragRef] = useDrag({
     type: props.ingridient.type,
@@ -49,11 +38,14 @@ function IngredientsItem(props) {
   });
 
   return (
-    <Link to={`/ingredients/${props.ingridient._id}`} state={{background: location}} className={styles.card_link}>
+    <Link
+      to={`/ingredients/${props.ingridient._id}`}
+      state={{ background: location }}
+      className={styles.card_link}>
       <article
         ref={dragRef}
         className={`${styles.cart} pb-6`}
-        onClick={handleClick}>
+        >
         <img
           className={`${styles.cart_image} ml-4`}
           src={props.ingridient.image}
@@ -77,7 +69,7 @@ function IngredientsItem(props) {
               ? [bun].filter((item) => item._id === props.ingridient._id)
                   .length * 2
               : burgerElements.filter(
-                  (item) => item._id === props.ingridient._id
+                  (item: TIngridientProps) => item._id === props.ingridient._id
                 ).length
           }
           size='default'
@@ -87,9 +79,5 @@ function IngredientsItem(props) {
     </Link>
   );
 }
-
-IngredientsItem.propTypes = {
-  ingridient: PropTypes.shape(IngredientType),
-};
 
 export default IngredientsItem;

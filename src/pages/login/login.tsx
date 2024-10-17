@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {SyntheticEvent} from "react";
 import { Link } from 'react-router-dom';
 import styles from './login.module.css';
 
@@ -14,13 +14,14 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function Login() {
+function Login(): React.JSX.Element {
   const dispatch = useDispatch();
 
   const { values, handleChange } = useForm();
 
-  function onClick(event) {
+  function onClick(event: SyntheticEvent) {
     event.preventDefault();
+    //@ts-ignore
     dispatch(loginUser(values));
   }
 
