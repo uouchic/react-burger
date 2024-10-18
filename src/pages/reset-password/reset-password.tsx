@@ -1,4 +1,4 @@
-import React, {SyntheticEvent} from "react";
+import React, { FormEvent } from "react";
 import { Link } from 'react-router-dom';
 import styles from './reset-password.module.css';
 
@@ -6,7 +6,6 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 import {
   Input,
-  EmailInput,
   PasswordInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -21,7 +20,7 @@ function ResetPassword(): React.JSX.Element {
 
   const { values, handleChange } = useForm();
 
-  function onClick(event: SyntheticEvent) {
+  function onClick(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     reset(values).then((res) => {
       localStorage.removeItem('resetPassword');

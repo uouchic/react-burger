@@ -1,4 +1,4 @@
-import React, {SyntheticEvent} from "react";
+import React, { MouseEvent } from "react";
 import { useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 
@@ -14,11 +14,9 @@ type TModal = {
 
 function Modal(props: TModal): React.JSX.Element {
 
-  console.log(props);
-
   const modalRoot = document.getElementById('modal')!;
 
-  const overlayClose = (e: SyntheticEvent) => {
+  const overlayClose = (e: MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       props.onClose();
     }

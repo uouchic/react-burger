@@ -1,4 +1,4 @@
-import React, {SyntheticEvent} from "react";
+import React, { FormEvent } from "react";
 import { Link } from 'react-router-dom';
 import styles from './login.module.css';
 
@@ -19,7 +19,7 @@ function Login(): React.JSX.Element {
 
   const { values, handleChange } = useForm();
 
-  function onClick(event: SyntheticEvent) {
+  function onClick(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     //@ts-ignore
     dispatch(loginUser(values));

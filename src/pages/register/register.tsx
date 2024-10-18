@@ -1,5 +1,5 @@
 
-import React, {SyntheticEvent} from "react";
+import React, { FormEvent } from "react";
 import { Link } from 'react-router-dom';
 import styles from './register.module.css';
 
@@ -22,7 +22,7 @@ function Register(): React.JSX.Element {
 
   const { values, handleChange } = useForm();
 
-  function onClick(event: SyntheticEvent) {
+  function onClick(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     //@ts-ignore
     dispatch(registerUser(values));

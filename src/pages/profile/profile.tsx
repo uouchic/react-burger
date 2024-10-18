@@ -1,4 +1,4 @@
-import React, {ChangeEvent, SyntheticEvent} from "react";
+import React, {ChangeEvent, FormEvent} from "react";
 
 import styles from './profile.module.css';
 
@@ -36,7 +36,7 @@ function Profile(): React.JSX.Element {
     setValues({ ...values, [name]: value });
   };
 
-  function onClick(event: SyntheticEvent) {
+  function onClick(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     //@ts-ignore
     dispatch(updateUser(values));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SyntheticEvent } from "react";
 
 import { getOrderBurger } from '../../services/actions/burger-order';
 
@@ -136,7 +136,7 @@ function BurgerConstructor(props: TBurgerConstructor): React.JSX.Element {
 
   
 
-  function onClick() {
+  function onClick(event: SyntheticEvent) {
     user ? handleOrder() : navigate('/login');
   }
 
