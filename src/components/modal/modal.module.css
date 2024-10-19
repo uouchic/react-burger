@@ -1,0 +1,15 @@
+.modal_ingr {
+  width: 720px;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0);
+  border-radius: 40px;
+  position: relative;
+  background-color: #1c1c21;
+}
+
+.modal_close {
+  cursor: pointer;
+  position: absolute;
+  top: 40px;
+  right: 40px;
+}

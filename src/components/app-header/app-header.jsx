@@ -13,26 +13,26 @@ function AppHeader() {
     <header className={styles.header}>
       <nav className={`${styles.nav} p-4`}>
         <div className={`${styles.row} ${styles.start}`}>
-          <div className={`${styles.row} p-5 mr-2`}>
+          <a href='#' className={`${styles.row} p-5 mr-2`}>
             <BurgerIcon type='primary' />
             <p className='text text_type_main-default pl-2'>Конструктор</p>
-          </div>
-          <div className={`${styles.row} p-5`}>
+          </a>
+          <a href='#' className={`${styles.row} p-5`}>
             <ListIcon type='secondary' />
             <p className='text text_type_main-default text_color_inactive pl-2'>
               Лента заказов
             </p>
-          </div>
+          </a>
         </div>
 
         <Logo />
 
-        <div className={`${styles.row} ${styles.end} p-5`}>
+        <a href='#' className={`${styles.row} ${styles.end} p-5`}>
           <ProfileIcon type='secondary' />
           <p className='text text_type_main-default text_color_inactive pl-2'>
             Личный кабинет
           </p>
-        </div>
+        </a>
       </nav>
     </header>
   );

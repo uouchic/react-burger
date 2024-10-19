@@ -1,0 +1,20 @@
+
+  .modal_img {
+    display: block;
+    margin: 0 auto;
+    width: 480px;
+  }
+  
+  .modal_name {
+    text-align: center;
+  }
+  
+  .modal_row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    text-align: center;
+  }
+  
+
+  
