@@ -1,95 +1,113 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+
+import { useRef } from 'react';
+
+import { useSelector } from 'react-redux';
+
 import PropTypes from 'prop-types';
+
 import styles from './burger-ingredients.module.css';
 
 import IngredientsGroup from '../burger-ingredients/ingredients-group/ingredients-group';
 
 import Modal from '../modal/modal';
 
-import ModalOverlay from '../modal-overlay/modal-overlay';
-
 import IngredientDetails from '../burger-ingredients/ingredients-details/ingredients-details';
 
-import {} from '@ya.praktikum/react-developer-burger-ui-components';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerIngredients(props) {
+  const { allBurgerIngredients, selectBurgerIngredient } = useSelector(
+    (store) => ({
+      allBurgerIngredients: store.burgerIngredients.allBurgerIngredients,
+      selectBurgerIngredient: store.selectBurgerIngredient,
+    })
+  );
+
+  const [current, setCurrent] = useState('one');
+
+  const tabRef = useRef();
+  const bunRef = useRef();
+  const sauceRef = useRef();
+  const mainRef = useRef();
+
+  function handleScroll() {
+    const coordinatesTab = tabRef.current.getBoundingClientRect().top;
+    const coordinatesBun = bunRef.current.getBoundingClientRect().top;
+    const coordinatesSause = sauceRef.current.getBoundingClientRect().top;
+    const coordinatesMain = mainRef.current.getBoundingClientRect().top;
+
+    if (coordinatesMain - coordinatesTab < 100) {
+      setCurrent('three');
+    } else if (coordinatesSause - coordinatesTab < 100) {
+      setCurrent('two');
+    } else if (coordinatesBun - coordinatesTab < 100) {
+      setCurrent('one');
+    } else {
+      setCurrent('one');
+    }
+  }
+
   return (
     <>
       <div>
         <section className={`${styles.section} mt-10`}>
           <h1 className='text text_type_main-large mb-5'>Соберите бургер</h1>
-          <div className={`${styles.row}`}>
-            <h2
-              className={`${styles.subtitle} ${styles.shadow_bold} text text_type_main-default pt-4 pb-4`}>
+
+          <div ref={tabRef} className={`${styles.row}`}>
+            <Tab value='one' active={current === 'one'} onClick={setCurrent}>
               Булки
-            </h2>
-            <h2
-              className={`${styles.subtitle} ${styles.shadow} text text_type_main-default pt-4 pb-4`}>
+            </Tab>
+            <Tab value='two' active={current === 'two'} onClick={setCurrent}>
               Соусы
-            </h2>
-            <h2
-              className={`${styles.subtitle} ${styles.shadow} text text_type_main-default pt-4 pb-4`}>
+            </Tab>
+            <Tab
+              value='three'
+              active={current === 'three'}
+              onClick={setCurrent}>
               Начинки
-            </h2>
+            </Tab>
           </div>
         </section>
 
-        <section className={`${styles.section2} mt-10 custom-scroll`}>
+        <section
+          onScroll={handleScroll}
+          className={`${styles.section2} mt-10 custom-scroll`}>
           <IngredientsGroup
-            onIngClick={props.onIngClick}
+            ingredientRef={bunRef}
             title={'Булки'}
-            ingridients={props.ingridients.filter(
+            ingridients={allBurgerIngredients.filter(
               (item) => item.type === 'bun'
             )}
           />
           <IngredientsGroup
-            onIngClick={props.onIngClick}
+            ingredientRef={sauceRef}
             title={'Соусы'}
-            ingridients={props.ingridients.filter(
+            ingridients={allBurgerIngredients.filter(
               (item) => item.type === 'sauce'
             )}
           />
           <IngredientsGroup
-            onIngClick={props.onIngClick}
+            ingredientRef={mainRef}
             title={'Начинка'}
-            ingridients={props.ingridients.filter(
+            ingridients={allBurgerIngredients.filter(
               (item) => item.type === 'main'
             )}
           />
         </section>
       </div>
 
-      <ModalOverlay ing={props.selectIngridient.image} onClose={props.onClose}>
-        <Modal title={'Детали ингридиента'} onClose={props.onClose}>
-          <IngredientDetails ing={props.selectIngridient} />
+      {selectBurgerIngredient.image && (
+        <Modal onClose={props.onClose} title={'Детали ингридиента'}>
+          <IngredientDetails ing={selectBurgerIngredient} />
         </Modal>
-      </ModalOverlay>
+      )}
     </>
   );
-
-
 }
 
-
 BurgerIngredients.propTypes = {
-  ingridients: PropTypes.shape({
-    image: PropTypes.string,
-    name: PropTypes.string,
-    price: PropTypes.string,
-  })
+  onClose: PropTypes.func,
 };
-
-BurgerIngredients.propTypes = {
-  selectIngridient: PropTypes.shape({
-    image: PropTypes.string,
-    name: PropTypes.string,
-    price: PropTypes.string,
-    calories: PropTypes.string,
-    proteins: PropTypes.string,
-    carbohydrates: PropTypes.string,
-    fat: PropTypes.string,
-  })
-};
-
 
 export default BurgerIngredients;

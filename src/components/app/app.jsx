@@ -1,96 +1,70 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
+
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+
 import styles from './app.module.css';
 
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 
-const BASE_URL = 'https://norma.nomoreparties.space/api/ingredients';
+import { getIngredients } from '../../services/actions/burger-ingredients';
+
+
+import { CLOSE_BURGER_ORDER } from '../../services/actions/burger-order';
+
+import { DELETE_BURGER_INGREDIENT } from '../../services/actions/burger-ingredient';
 
 function App() {
-  const [ingridients, setIngridients] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  
+  const dispatch = useDispatch();
 
-  const [selectIngridient, setSelectIngridient] = useState({
-    name: '',
-    carbohydrates: '',
-    fat: '',
-    carbohydrates: '',
-    calories: '',
-    image: '',
-  });
-
-  function handleIngridientClick(ingr) {
-    setSelectIngridient(ingr);
-  }
-
-  const [selectOrder, setSelectOrder] = useState(false);
-
-  function handleOrderClick() {
-    setSelectOrder(true);
+  function closeModalOrder() {
+    dispatch({
+      type: CLOSE_BURGER_ORDER,
+    });
   }
 
   function closeModal() {
-    setSelectIngridient({
-      name: '',
-      carbohydrates: '',
-      fat: '',
-      carbohydrates: '',
-      calories: '',
-      image: '',
+    dispatch({
+      type: DELETE_BURGER_INGREDIENT,
     });
-
-    setSelectOrder(false);
   }
 
   useEffect(() => {
-    setError(null);
-    const getIngredientsData = async () => {
-      try {
-        setLoading(true);
-        const res = await fetch(BASE_URL);
-        if (!res.ok) {
-          return Promise.reject(`Ошибка: ${res.status}`);
-        }
-        const ingredients = await res.json();
-        setIngridients(ingredients.data);
-        setLoading(false);
-      } catch (err) {
-        setError(err);
-        setLoading(false);
-      }
-    };
-    getIngredientsData();
-  }, []);
+    dispatch(getIngredients());
+  }, [dispatch]);
+
+  const { burgerIngredientsRequest, burgerIngredientsFailed } = useSelector(
+    (store) => ({
+      burgerIngredientsRequest:
+        store.burgerIngredients.burgerIngredientsRequest,
+      burgerIngredientsFailed: store.burgerIngredients.burgerIngredientsFailed,
+    })
+  );
 
   return (
     <>
       <div className={styles.app}>
         <AppHeader />
 
-        {loading ? (
+        {burgerIngredientsRequest ? (
           <h2 className={`${styles.mess} mt-10`}>
             Загрузка ингридиентов бургера
           </h2>
-        ) : error ? (
-          <h2 className={`${styles.mess} mt-10`}>
-            Что-то пошло не так:<p>{error.message}</p>
-          </h2>
+        ) : burgerIngredientsFailed ? (
+          <h2 className={`${styles.mess} mt-10`}>Что-то пошло не так</h2>
         ) : (
-          <main className={`${styles.content} pb-10`}>
-            <BurgerIngredients
-              ingridients={ingridients}
-              onIngClick={handleIngridientClick}
-              onClose={closeModal}
-              selectIngridient={selectIngridient}
-            />
-            <BurgerConstructor
-              onClose={closeModal}
-              selectOrder={selectOrder}
-              onOrdClick={handleOrderClick}
-            />
-          </main>
+          <DndProvider backend={HTML5Backend}>
+            <main className={`${styles.content} pb-10`}>
+              <BurgerIngredients onClose={closeModal} />
+
+              <BurgerConstructor onClose={closeModalOrder} />
+            </main>
+          </DndProvider>
         )}
       </div>
     </>

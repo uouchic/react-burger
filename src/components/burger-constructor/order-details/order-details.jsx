@@ -7,11 +7,11 @@ import graphics from '../../../images/graphics.svg';
 
 import {} from '@ya.praktikum/react-developer-burger-ui-components';
 
-function OrderDetails() {
+function OrderDetails(props) {
   return (
     <>
       <p className={`${styles.order_number} text text_type_digits-large mt-20`}>
-        034536
+        {props.orderNumber}
       </p>
       <p className={`${styles.order_number} text text_type_main-medium mt-8`}>
         идентификатор заказа

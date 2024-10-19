@@ -1,4 +1,11 @@
 import React from 'react';
+
+import IngredientType from '../../../utils/types' 
+
+import { useDispatch, useSelector } from 'react-redux';
+
+import { useDrag } from 'react-dnd';
+
 import PropTypes from 'prop-types';
 import styles from './ingredients-item.module.css';
 
@@ -7,12 +14,41 @@ import {
   Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import { SELECT_BURGER_INGREDIENT } from '../../../services/actions/burger-ingredient';
+
 function IngredientsItem(props) {
+
+  const { burgerElements, bun } = useSelector((store) => ({
+    burgerElements: store.burgerElements.burgerElement,
+    bun: store.burgerElements.bun,
+  }));
+
+
+  const dispatch = useDispatch();
+
   function handleClick() {
-    props.onIngClick(props.ingridient);
+
+    dispatch({
+      type: SELECT_BURGER_INGREDIENT,
+      name: props.ingridient.name,
+      proteins: props.ingridient.proteins,
+      fat: props.ingridient.fat,
+      carbohydrates: props.ingridient.carbohydrates,
+      calories: props.ingridient.calories,
+      image: props.ingridient.image,
+    });
   }
+
+  const [, dragRef] = useDrag({
+    type: props.ingridient.type,
+    item: props.ingridient,
+  });
+
   return (
-    <article className={`${styles.cart} pb-6`} onClick={handleClick}>
+    <article
+      ref={dragRef}
+      className={`${styles.cart} pb-6`}
+      onClick={handleClick}>
       <img
         className={`${styles.cart_image} ml-4`}
         src={props.ingridient.image}
@@ -30,18 +66,23 @@ function IngredientsItem(props) {
         {props.ingridient.name}
       </p>
 
-      <Counter count={1} size='default' extraClass='m-1' />
+      <Counter
+        count={
+          props.ingridient.type === 'bun'
+            ? [bun].filter((item) => item._id === props.ingridient._id).length*2
+            : burgerElements.filter((item) => item._id === props.ingridient._id)
+                .length
+        }
+        size='default'
+        extraClass='m-1'
+      />
     </article>
   );
-
-
 }
+
+
 IngredientsItem.propTypes = {
-  ingridient: PropTypes.shape({
-    image: PropTypes.string,
-    name: PropTypes.string,
-    price: PropTypes.string,
-  })
+  ingridient: PropTypes.shape(IngredientType),
 };
 
 export default IngredientsItem;
