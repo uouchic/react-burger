@@ -16,3 +16,8 @@
 .cart_name {
   text-align: center;
 }
+
+.card_link {
+  text-decoration: none;
+  color: inherit;
+}

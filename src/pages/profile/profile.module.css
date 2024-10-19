@@ -1,0 +1,27 @@
+.content {
+    max-width: 1240px;
+    margin: 120px auto 0;
+    display: grid;
+    grid-template-columns: 320px 480px;
+    column-gap: 60px;
+  }
+
+  .wrap_link {
+    display: flex;
+    flex-direction: column;
+  }
+
+
+.link {
+  text-decoration: none;
+}
+
+.link_active {
+  color: inherit;
+}
+
+.but_wrap {
+  display: flex;
+  justify-content: end;
+}
+

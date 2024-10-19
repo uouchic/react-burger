@@ -2,17 +2,36 @@ import React from 'react';
 import * as ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
+import { useSelector } from 'react-redux';
+
+import { useParams } from 'react-router-dom';
+
 import IngredientType from '../../../utils/types'
 
 
 import styles from './ingredients-details.module.css';
 
-function IngredientDetails(props) {
+function IngredientDetails() {
+
+
+
+  const { allBurgerIngredients } = useSelector(
+    (store) => ({
+      allBurgerIngredients: store.burgerIngredients.allBurgerIngredients,
+    })
+  );
+
+  const { ingredientId } = useParams();
+
+  const objIng = allBurgerIngredients.filter((ing) => ing._id === ingredientId);
+
+
+
   return (
     <>
-      <img className={`${styles.modal_img}`} src={props.ing.image} alt={props.ing.name} />
+      <img className={`${styles.modal_img}`} src={objIng.map((ingr) => ingr.image)} alt={''} />
       <p className={`${styles.modal_name} text text_type_main-medium mt-4`}>
-        {props.ing.name}
+        {objIng.map((ingr) => ingr.name)}
       </p>
 
       <div className={`${styles.modal_row} mt-8`}>
@@ -21,7 +40,7 @@ function IngredientDetails(props) {
             Калории, ккал
           </p>
           <p className='text text_type_digits-default mt-4'>
-            {props.ing.calories}
+            {objIng.map((ingr) => ingr.calories)}
           </p>
         </div>
 
@@ -30,7 +49,7 @@ function IngredientDetails(props) {
             Белки, г
           </p>
           <p className='text text_type_digits-default mt-4'>
-            {props.ing.proteins}
+            {objIng.map((ingr) => ingr.proteins)}
           </p>
         </div>
 
@@ -38,7 +57,7 @@ function IngredientDetails(props) {
           <p className='text text_type_main-small text_color_inactive'>
             Жиры, г
           </p>
-          <p className='text text_type_digits-default mt-4'>{props.ing.fat}</p>
+          <p className='text text_type_digits-default mt-4'>{objIng.map((ingr) => ingr.fat)}</p>
         </div>
 
         <div>
@@ -46,7 +65,7 @@ function IngredientDetails(props) {
             Углеводы, г
           </p>
           <p className='text text_type_digits-default mt-4'>
-            {props.ing.carbohydrates}
+            {objIng.map((ingr) => ingr.carbohydrates)}
           </p>
         </div>
       </div>

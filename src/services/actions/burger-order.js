@@ -6,6 +6,8 @@ export const GET_BURGER_ORDER = 'GET_BURGER_ORDER';
 
 export const CLOSE_BURGER_ORDER = 'CLOSE_BURGER_ORDER';
 
+export const LOADING_BURGER_ORDER = 'LOADING_BURGER_ORDER';
+
 
 export function getOrderBurger(arrOrder) {
 
@@ -17,6 +19,7 @@ export function getOrderBurger(arrOrder) {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
+                    authorization: localStorage.getItem('accessToken'),
                 },
                 body: JSON.stringify({
                     ingredients: arrOrder,
