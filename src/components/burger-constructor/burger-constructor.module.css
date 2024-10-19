@@ -1,0 +1,24 @@
+.section {
+  max-width: 600px;
+  max-height: 912px;
+}
+
+.wrap_items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 556px;
+  overflow-y: scroll;
+}
+
+.wrap_item {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.wrap_btn {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
