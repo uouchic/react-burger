@@ -1,12 +1,8 @@
-import React from 'react';
-
-import { useState } from 'react';
+import React, { SyntheticEvent } from "react";
 
 import { getOrderBurger } from '../../services/actions/burger-order';
 
 import { useNavigate } from 'react-router-dom';
-
-import PropTypes from 'prop-types';
 
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -15,11 +11,13 @@ import styles from './burger-constructor.module.css';
 
 import Modal from '../modal/modal';
 
-import OrderDetails from '../burger-constructor/order-details/order-details';
+import OrderDetails from './order-details/order-details';
 
 import BurgerElement from './burger-element/burger-element';
 
 import Preloader from '../preloader/preloader';
+
+import { TIngridientProps } from '../../utils/types'
 
 import {
   ConstructorElement,
@@ -37,17 +35,28 @@ import {
   LOADING_BURGER_ORDER,
 } from '../../services/actions/burger-order';
 
-function BurgerConstructor(props) {
+
+
+type TBurgerConstructor = {
+  onClose: () => void;
+};
+
+function BurgerConstructor(props: TBurgerConstructor): React.JSX.Element {
 
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const { burgerElement, bun, orderNumber, user, orderLoading } = useSelector((store) => ({
+    // @ts-ignore
     burgerElement: store.burgerElements.burgerElement,
+    // @ts-ignore
     bun: store.burgerElements.bun,
+    // @ts-ignore
     orderNumber: store.orderBurger.orderNumber,
+    // @ts-ignore
     user: store.userRegister.user,
+    // @ts-ignore
     orderLoading: store.orderBurger.orderLoading,
   }));
 
@@ -57,6 +66,7 @@ function BurgerConstructor(props) {
       dispatch({
         type: ADD_BURGER_ELEMENT,
         burgerElement: {
+          // @ts-ignore
           ...burgerElement,
           namber: Math.round(Math.random() * 10000),
         },
@@ -88,7 +98,7 @@ function BurgerConstructor(props) {
 
   const initialValue = 0;
   const sum1 = burgerElement.reduce(
-    (accumulator, currentValue) => accumulator + currentValue.price,
+    (accumulator: number, currentValue: {price: number}) => accumulator + currentValue.price,
     initialValue
   );
   const sum2 = bun.price ? bun.price * 2 : 0;
@@ -96,7 +106,7 @@ function BurgerConstructor(props) {
 
   // -------------------------------Перетаскивание карточек--------------------------------------
 
-  const moveCard = (dragIndex, hoverIndex) => {
+  const moveCard = (dragIndex: number, hoverIndex: number) => {
     const dragCard = burgerElement[dragIndex];
     const newCards = [...burgerElement];
     newCards.splice(dragIndex, 1);
@@ -109,12 +119,13 @@ function BurgerConstructor(props) {
 
   // ---------------------------- Получение заказа АПИ -----------------------------------
 
-  const arrOrder = burgerElement.map((ing) => ing._id);
+  const arrOrder = burgerElement.map((ing: TIngridientProps) => ing._id);
   arrOrder.push(bun._id);
   arrOrder.unshift(bun._id);
 
 
   function handleOrder() {
+    // @ts-ignore
     dispatch(getOrderBurger(arrOrder))
     dispatch({
       type: LOADING_BURGER_ORDER,
@@ -125,7 +136,7 @@ function BurgerConstructor(props) {
 
   
 
-  function onClick() {
+  function onClick(event: SyntheticEvent) {
     user ? handleOrder() : navigate('/login');
   }
 
@@ -147,10 +158,11 @@ function BurgerConstructor(props) {
           <div
             ref={dropIngredients}
             className={`${styles.wrap_items} mt-4 mb-4`}>
-            {burgerElement.map((burgerElement, index) => (
+            {burgerElement.map((burgerElement: TIngridientProps, index: number) => (
               <div key={burgerElement.namber} className={`${styles.wrap_item}`}>
                 <BurgerElement
                   index={index}
+                  // @ts-ignore
                   moveCard={moveCard}
                   burgerElement={burgerElement}
                 />
@@ -194,8 +206,5 @@ function BurgerConstructor(props) {
     </>
   );
 }
-BurgerConstructor.propTypes = {
-  onClose: PropTypes.func,
-};
 
 export default BurgerConstructor;

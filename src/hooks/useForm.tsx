@@ -1,3 +1,4 @@
+import React, {ChangeEvent, SyntheticEvent} from "react";
 import { useState } from 'react';
 
 export function useForm() {
@@ -8,7 +9,7 @@ export function useForm() {
     token: '',
   });
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.target;
     const value = target.value;
     const name = target.name;

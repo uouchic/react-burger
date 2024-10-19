@@ -4,28 +4,37 @@ import { useRef } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import PropTypes from 'prop-types';
-
 import styles from './burger-ingredients.module.css';
 
-import IngredientsGroup from '../burger-ingredients/ingredients-group/ingredients-group';
+import IngredientsGroup from './ingredients-group/ingredients-group';
+
+import { TIngridientProps } from '../../utils/types'
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerIngredients(props) {
-  const { allBurgerIngredients, selectBurgerIngredient } = useSelector(
+type TBurgerIngredients = {
+  onClose: () => void;
+};
+
+
+function BurgerIngredients(props: TBurgerIngredients): React.JSX.Element {
+
+  const { allBurgerIngredients } = useSelector(
     (store) => ({
+       // @ts-ignore
       allBurgerIngredients: store.burgerIngredients.allBurgerIngredients,
-      selectBurgerIngredient: store.selectBurgerIngredient,
     })
   );
 
   const [current, setCurrent] = useState('one');
 
-  const tabRef = useRef();
-  const bunRef = useRef();
-  const sauceRef = useRef();
-  const mainRef = useRef();
+  const tabRef = useRef<HTMLDivElement>(null!);
+  const bunRef = useRef<HTMLHeadingElement>(null!);
+  const sauceRef = useRef<HTMLHeadingElement>(null!);
+  const mainRef = useRef<HTMLHeadingElement>(null!);
+
+
+  
 
   function handleScroll() {
     const coordinatesTab = tabRef.current.getBoundingClientRect().top;
@@ -70,24 +79,27 @@ function BurgerIngredients(props) {
           onScroll={handleScroll}
           className={`${styles.section2} mt-10 custom-scroll`}>
           <IngredientsGroup
+          
             ingredientRef={bunRef}
             title={'Булки'}
             ingridients={allBurgerIngredients.filter(
-              (item) => item.type === 'bun'
+              (item: TIngridientProps) => item.type === 'bun'
             )}
           />
           <IngredientsGroup
+          
             ingredientRef={sauceRef}
             title={'Соусы'}
             ingridients={allBurgerIngredients.filter(
-              (item) => item.type === 'sauce'
+              (item: TIngridientProps) => item.type === 'sauce'
             )}
           />
           <IngredientsGroup
+          
             ingredientRef={mainRef}
             title={'Начинка'}
             ingridients={allBurgerIngredients.filter(
-              (item) => item.type === 'main'
+              (item: TIngridientProps) => item.type === 'main'
             )}
           />
         </section>
@@ -98,8 +110,5 @@ function BurgerIngredients(props) {
   );
 }
 
-BurgerIngredients.propTypes = {
-  onClose: PropTypes.func,
-};
 
 export default BurgerIngredients;

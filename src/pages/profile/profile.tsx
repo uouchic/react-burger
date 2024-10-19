@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent, FormEvent} from "react";
 
 import styles from './profile.module.css';
 
@@ -19,28 +19,31 @@ import { updateUser } from '../../services/actions/userAuth';
 
 import { logoutUser } from '../../services/actions/userAuth';
 
-function Profile() {
+function Profile(): React.JSX.Element {
   const dispatch = useDispatch();
 
   const { user } = useSelector((store) => ({
+    //@ts-ignore
     user: store.userRegister.user,
   }));
 
   const [values, setValues] = React.useState({ ...user, password: '' });
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
     setValues({ ...values, [name]: value });
   };
 
-  function onClick(event) {
+  function onClick(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    //@ts-ignore
     dispatch(updateUser(values));
   }
 
   function onClickExit() {
+    //@ts-ignore
     dispatch(logoutUser());
   }
 
@@ -85,6 +88,7 @@ function Profile() {
         <Input
           type={'text'}
           placeholder={'Имя'}
+          //@ts-ignore
           icon={false}
           name={'name'}
           error={false}

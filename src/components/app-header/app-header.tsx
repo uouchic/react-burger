@@ -10,7 +10,7 @@ import {
   ListIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function AppHeader() {
+function AppHeader(): React.JSX.Element {
   return (
     <header className={styles.header}>
       <nav className={`${styles.nav} p-4`}>

@@ -1,22 +1,29 @@
+import React, { MouseEvent } from "react";
 import { useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 
-import PropTypes from 'prop-types';
 import styles from './modal.module.css';
 
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function Modal(props) {
-  const modalRoot = document.getElementById('modal');
+type TModal = {
+  onClose: () => void;
+  title?: string;
+  children: React.ReactNode;
+};
 
-  const overlayClose = (e) => {
+function Modal(props: TModal): React.JSX.Element {
+
+  const modalRoot = document.getElementById('modal')!;
+
+  const overlayClose = (e: MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       props.onClose();
     }
   };
 
   useEffect(() => {
-    const closeEsc = (e) => {
+    const closeEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') props.onClose();
     };
     document.addEventListener('keydown', closeEsc);
@@ -30,7 +37,8 @@ function Modal(props) {
     <div className={styles.overlay} onClick={overlayClose}>
       <div className={`${styles.modal_ingr} pt-10 pb-15`}>
         <h2 className='text text_type_main-large ml-10'>{props.title}</h2>
-
+        
+        
         {props.children}
 
         <CloseIcon
@@ -40,13 +48,9 @@ function Modal(props) {
         />
       </div>
     </div>,
+    
     modalRoot
   );
 }
-
-Modal.propTypes = {
-  title: PropTypes.string,
-  onClose: PropTypes.func,
-};
 
 export default Modal;

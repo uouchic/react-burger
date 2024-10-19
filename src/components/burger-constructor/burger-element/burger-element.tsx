@@ -14,16 +14,38 @@ import {
 
 import styles from './burger-element.module.css';
 
-function BurgerElement(props) {
+import { TIngridientProps } from '../../../utils/types'
+
+import { Identifier } from 'dnd-core'
+
+
+type TBurgerElement = {
+  burgerElement: TIngridientProps;
+  index: number;
+};
+
+type TDragObject = {
+  index: number;
+  id: string;
+};
+type TDragCollectedProps = { isDragging: boolean };
+
+type TDropCollectedProps = { handlerID: Identifier | null};
+
+
+
+
+
+function BurgerElement(props: TBurgerElement): React.JSX.Element {
 
 
     const id = props.burgerElement._id;
 
     const index = props.index;
-
+    // @ts-ignore
     const moveCard = props.moveCard;
 
-    const ref = useRef(null);
+    const ref = useRef<HTMLDivElement>(null);
 
     const dispatch = useDispatch();
 
@@ -39,7 +61,7 @@ function BurgerElement(props) {
 
     // ------------------ DnD -------useDrag-------------------
 
-    const [{ isDragging }, drag] = useDrag({
+    const [{ isDragging }, drag] = useDrag<TDragObject,unknown,TDragCollectedProps>({
         type: 'card',
         item: () => {
             return { id, index }
@@ -52,7 +74,7 @@ function BurgerElement(props) {
 
     // ------------------ DnD -------useDrop-------------------
 
-    const [, drop] = useDrop({
+    const [, drop] = useDrop<TDragObject,unknown,TDropCollectedProps>({
         accept: "card",
         hover(item, monitor) {
 
@@ -69,13 +91,19 @@ function BurgerElement(props) {
             if (dragIndex === hoverIndex) {
                 return
             }
+            
 
             const hoverBoundingRect = ref.current?.getBoundingClientRect()
 
             const hoverMiddleY =
                 (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
 
-            const clientOffset = monitor.getClientOffset()
+            const clientOffset = monitor.getClientOffset();
+
+            if(!clientOffset) {
+                return;
+            }
+            
 
             const hoverClientY = clientOffset.y - hoverBoundingRect.top
 

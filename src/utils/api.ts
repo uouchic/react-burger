@@ -4,6 +4,32 @@ import BASE_URL from './base-url'
 
 
 
+type TUserData = {
+    email: string;
+    name?: string;
+    password?: string;
+    token?: string;
+
+}
+
+
+type TUserDataRes = {
+    success: boolean;
+    user: Pick<TUserData, 'email' | 'name'>;
+    accessToken: string;
+    refreshToken: string;
+
+}
+
+
+type TLogoutRes = {
+    success: string;
+    message: string;
+
+}
+
+
+
 export const refreshToken = () => {
     return fetch(`${BASE_URL}/auth/token`, {
         method: "POST",
@@ -14,7 +40,7 @@ export const refreshToken = () => {
             token: localStorage.getItem("refreshToken"),
         }),
     })
-        .then(checkResponse)
+        .then(checkResponse<TUserDataRes>)
         .then((refreshData) => {
             if (!refreshData.success) {
                 return Promise.reject(refreshData);
@@ -25,13 +51,28 @@ export const refreshToken = () => {
         });
 };
 
-export const fetchWithRefresh = async (url, options) => {
+
+
+type THeaders = {
+  authorization: string;
+};
+
+
+
+type TOptions = {
+  method: string;
+  headers: THeaders;
+  body: string;
+};
+
+
+
+export const fetchWithRefresh = async (url: string, options: TOptions) => {
 
     try {
         const res = await fetch(url, options);
-        console.log(res)
-        return await checkResponse(res);
-    } catch (err) {
+        return await checkResponse<TUserDataRes>(res);
+    } catch (err: any) {
         if (err.message === "jwt expired") {
             const refreshData = await refreshToken();
             options.headers.authorization = refreshData.accessToken;
@@ -44,7 +85,8 @@ export const fetchWithRefresh = async (url, options) => {
 };
 
 
-export const register = (userData) => {
+
+export const register = (userData: Pick<TUserData, 'email' | 'password' | 'name'>): Promise<TUserDataRes> => {
     return fetch(`${BASE_URL}/auth/register`, {
         method: 'POST',
         headers: {
@@ -56,11 +98,11 @@ export const register = (userData) => {
             name: userData.name,
         }),
     })
-        .then((res) => checkResponse(res));
+        .then((res) => checkResponse<TUserDataRes>(res));
 };
 
 
-export const login = (userData) => {
+export const login = (userData: Pick<TUserData, 'email' | 'password'>): Promise<TUserDataRes> => {
     return fetch(`${BASE_URL}/auth/login`, {
         method: 'POST',
         headers: {
@@ -71,14 +113,14 @@ export const login = (userData) => {
             password: userData.password,
         }),
     })
-        .then((res) => checkResponse(res));
+        .then((res) => checkResponse<TUserDataRes>(res));
 };
 
 
 
 
 
-export const logout = () => {
+export const logout = (): Promise<TLogoutRes> => {
     return fetch(`${BASE_URL}/auth/logout`, {
         method: 'POST',
         headers: {
@@ -88,11 +130,11 @@ export const logout = () => {
             token: localStorage.getItem("refreshToken"),
         }),
     })
-        .then((res) => checkResponse(res));
+        .then((res) => checkResponse<TLogoutRes>(res));
 };
 
 
-export const forgot = (email) => {
+export const forgot = (email:  Pick<TUserData, 'email'>): Promise<TLogoutRes> => {
     return fetch(`${BASE_URL}/password-reset`, {
         method: 'POST',
         headers: {
@@ -102,11 +144,11 @@ export const forgot = (email) => {
             email: email.email,
         }),
     })
-        .then((res) => checkResponse(res));
+        .then((res) => checkResponse<TLogoutRes>(res));
 };
 
 
-export const reset = (resetData) => {
+export const reset = (resetData: Pick<TUserData, 'token' | 'password'>): Promise<TLogoutRes> => {
     return fetch(`${BASE_URL}/password-reset/reset`, {
         method: 'POST',
         headers: {
@@ -117,7 +159,7 @@ export const reset = (resetData) => {
             token: resetData.token,
         }),
     })
-    .then((res) => checkResponse(res));
+    .then((res) => checkResponse<TLogoutRes>(res));
 
 };
 

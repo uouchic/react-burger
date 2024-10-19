@@ -1,13 +1,19 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+
 import styles from './order-details.module.css';
 
 import graphics from '../../../images/graphics.svg';
 
 import {} from '@ya.praktikum/react-developer-burger-ui-components';
 
-function OrderDetails(props) {
+type TOrderDetails = {
+  orderNumber: number;
+      
+};
+
+function OrderDetails(props: TOrderDetails): React.JSX.Element {
+
   return (
     <>
       <p className={`${styles.order_number} text text_type_digits-large mt-20`}>
