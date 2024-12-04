@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 
 import { TIngridientProps } from '../../../utils/types'
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from '../../../utils/hook';
 
 import { useDrag } from 'react-dnd';
 
@@ -26,9 +26,7 @@ function IngredientsItem(props: TIngredientsItemProps): React.JSX.Element {
   const location = useLocation();
 
   const { burgerElements, bun } = useSelector((store) => ({
-     // @ts-ignore
     burgerElements: store.burgerElements.burgerElement,
-     // @ts-ignore
     bun: store.burgerElements.bun,
   }));
 
@@ -66,6 +64,7 @@ function IngredientsItem(props: TIngredientsItemProps): React.JSX.Element {
         <Counter
           count={
             props.ingridient.type === 'bun'
+            //@ts-ignore
               ? [bun].filter((item) => item._id === props.ingridient._id)
                   .length * 2
               : burgerElements.filter(

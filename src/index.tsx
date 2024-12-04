@@ -8,30 +8,50 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { compose, createStore, applyMiddleware } from 'redux';
 
+import { socketMiddleware } from './services/middleware/socket-middleware';
+
+import { userSocketMiddleware } from './services/middleware/user-socket-middleware';
+
 import { rootReducer } from './services/reducers/index';
 
 import { Provider } from 'react-redux';
 
 import { thunk } from 'redux-thunk';
 
+import { IntlProvider } from 'react-intl';
+
+//const accessToken = (String(localStorage.getItem('accessToken')).split(' '))[1];
 
 const composeEnhancers =
-// @ts-ignore
-  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   // @ts-ignore
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? // @ts-ignore
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;
 
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+const enhancer = composeEnhancers(
+  applyMiddleware(
+    thunk,
+    socketMiddleware('wss://norma.nomoreparties.space/orders/all'),
+    userSocketMiddleware(
+      `wss://norma.nomoreparties.space/orders`
+    )
+  )
+);
 
-const store = createStore(rootReducer, enhancer);
+export const store = createStore(rootReducer, enhancer);
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+      <IntlProvider locale='ru'>
+
+      <App />
+
+      </IntlProvider>
+        
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

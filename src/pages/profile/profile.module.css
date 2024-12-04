@@ -2,8 +2,12 @@
     max-width: 1240px;
     margin: 120px auto 0;
     display: grid;
-    grid-template-columns: 320px 480px;
+    grid-template-columns: 320px 860px;
     column-gap: 60px;
+  }
+
+  .wrap_form {
+    width: 480px;
   }
 
   .wrap_link {
@@ -24,4 +28,6 @@
   display: flex;
   justify-content: end;
 }
+
+
 

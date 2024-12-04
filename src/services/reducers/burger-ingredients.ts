@@ -4,6 +4,10 @@ import {
     GET_BURGER_INGREDIENTS_FAILED
 } from '../actions/burger-ingredients';
 
+import type { TBurgerIngredients } from '../actions/burger-ingredients';
+
+
+
 const initialState = {
 
     allBurgerIngredients: [],
@@ -12,7 +16,7 @@ const initialState = {
 
 };
 
-export const burgerIngredientsReducer = (state = initialState, action) => {
+export const burgerIngredientsReducer = (state = initialState, action: TBurgerIngredients) => {
 
     switch (action.type) {
 

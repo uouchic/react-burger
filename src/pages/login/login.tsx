@@ -2,7 +2,7 @@ import React, { FormEvent } from "react";
 import { Link } from 'react-router-dom';
 import styles from './login.module.css';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../utils/hook';
 
 import { useForm } from '../../hooks/useForm';
 
@@ -21,7 +21,6 @@ function Login(): React.JSX.Element {
 
   function onClick(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    //@ts-ignore
     dispatch(loginUser(values));
   }
 

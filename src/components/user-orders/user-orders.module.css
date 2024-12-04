@@ -1,0 +1,12 @@
+.column {
+  display: flex;
+  flex-direction: column;
+  height: 916px;
+  overflow-y: scroll;
+}
+
+
+.order_link {
+  color: inherit;
+  text-decoration: none;
+  }

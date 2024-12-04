@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { useRef } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../utils/hook';
 
 import styles from './burger-ingredients.module.css';
 
@@ -21,7 +21,6 @@ function BurgerIngredients(props: TBurgerIngredients): React.JSX.Element {
 
   const { allBurgerIngredients } = useSelector(
     (store) => ({
-       // @ts-ignore
       allBurgerIngredients: store.burgerIngredients.allBurgerIngredients,
     })
   );
@@ -82,6 +81,7 @@ function BurgerIngredients(props: TBurgerIngredients): React.JSX.Element {
           
             ingredientRef={bunRef}
             title={'Булки'}
+            //@ts-ignore
             ingridients={allBurgerIngredients.filter(
               (item: TIngridientProps) => item.type === 'bun'
             )}
@@ -90,6 +90,7 @@ function BurgerIngredients(props: TBurgerIngredients): React.JSX.Element {
           
             ingredientRef={sauceRef}
             title={'Соусы'}
+            //@ts-ignore
             ingridients={allBurgerIngredients.filter(
               (item: TIngridientProps) => item.type === 'sauce'
             )}
@@ -98,6 +99,7 @@ function BurgerIngredients(props: TBurgerIngredients): React.JSX.Element {
           
             ingredientRef={mainRef}
             title={'Начинка'}
+            //@ts-ignore
             ingridients={allBurgerIngredients.filter(
               (item: TIngridientProps) => item.type === 'main'
             )}

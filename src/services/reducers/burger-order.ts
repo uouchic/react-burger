@@ -4,6 +4,8 @@ import {
     LOADING_BURGER_ORDER,
 } from '../actions/burger-order';
 
+import type { TBurgerOrder } from '../actions/burger-order';
+
 
 const initialState = {
 
@@ -13,7 +15,7 @@ const initialState = {
 
 };
 
-export const orderBurger = (state = initialState, action) => {
+export const orderBurger = (state = initialState, action: TBurgerOrder) => {
 
     switch (action.type) {
 

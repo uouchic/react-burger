@@ -1,11 +1,11 @@
-import React, { SyntheticEvent } from "react";
+import React, { SyntheticEvent } from 'react';
 
 import { getOrderBurger } from '../../services/actions/burger-order';
 
 import { useNavigate } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../utils/hook';
+
 import { useDrop } from 'react-dnd';
 import styles from './burger-constructor.module.css';
 
@@ -17,7 +17,7 @@ import BurgerElement from './burger-element/burger-element';
 
 import Preloader from '../preloader/preloader';
 
-import { TIngridientProps } from '../../utils/types'
+import { TIngridientProps } from '../../utils/types';
 
 import {
   ConstructorElement,
@@ -31,34 +31,26 @@ import {
   SORT_BURGER_ELEMENT,
 } from '../../services/actions/burger-element';
 
-import {
-  LOADING_BURGER_ORDER,
-} from '../../services/actions/burger-order';
-
-
+import { LOADING_BURGER_ORDER } from '../../services/actions/burger-order';
 
 type TBurgerConstructor = {
   onClose: () => void;
 };
 
 function BurgerConstructor(props: TBurgerConstructor): React.JSX.Element {
-
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
-  const { burgerElement, bun, orderNumber, user, orderLoading } = useSelector((store) => ({
-    // @ts-ignore
-    burgerElement: store.burgerElements.burgerElement,
-    // @ts-ignore
-    bun: store.burgerElements.bun,
-    // @ts-ignore
-    orderNumber: store.orderBurger.orderNumber,
-    // @ts-ignore
-    user: store.userRegister.user,
-    // @ts-ignore
-    orderLoading: store.orderBurger.orderLoading,
-  }));
+  const { burgerElement, bun, orderNumber, user, orderLoading } = useSelector(
+    (store) => ({
+      burgerElement: store.burgerElements.burgerElement,
+      bun: store.burgerElements.bun,
+      orderNumber: store.orderBurger.orderNumber,
+      user: store.userRegister.user,
+      orderLoading: store.orderBurger.orderLoading,
+    })
+  );
 
   const [, dropIngredients] = useDrop({
     accept: ['main', 'sauce'],
@@ -77,6 +69,7 @@ function BurgerConstructor(props: TBurgerConstructor): React.JSX.Element {
   const [, dropBunTop] = useDrop({
     accept: 'bun',
     drop(bun) {
+      //@ts-ignore
       dispatch({
         type: ADD_BUN_ELEMENT,
         bun: bun,
@@ -87,6 +80,7 @@ function BurgerConstructor(props: TBurgerConstructor): React.JSX.Element {
   const [, dropBunBottom] = useDrop({
     accept: 'bun',
     drop(bun) {
+      //@ts-ignore
       dispatch({
         type: ADD_BUN_ELEMENT,
         bun: bun,
@@ -98,9 +92,11 @@ function BurgerConstructor(props: TBurgerConstructor): React.JSX.Element {
 
   const initialValue = 0;
   const sum1 = burgerElement.reduce(
-    (accumulator: number, currentValue: {price: number}) => accumulator + currentValue.price,
+    (accumulator: number, currentValue: { price: number }) =>
+      accumulator + currentValue.price,
     initialValue
   );
+
   const sum2 = bun.price ? bun.price * 2 : 0;
   const sum = sum1 + sum2;
 
@@ -123,18 +119,13 @@ function BurgerConstructor(props: TBurgerConstructor): React.JSX.Element {
   arrOrder.push(bun._id);
   arrOrder.unshift(bun._id);
 
-
   function handleOrder() {
-    // @ts-ignore
-    dispatch(getOrderBurger(arrOrder))
+    dispatch(getOrderBurger(arrOrder));
     dispatch({
       type: LOADING_BURGER_ORDER,
       loading: true,
-  });
-
+    });
   }
-
-  
 
   function onClick(event: SyntheticEvent) {
     user ? handleOrder() : navigate('/login');
@@ -158,16 +149,20 @@ function BurgerConstructor(props: TBurgerConstructor): React.JSX.Element {
           <div
             ref={dropIngredients}
             className={`${styles.wrap_items} mt-4 mb-4`}>
-            {burgerElement.map((burgerElement: TIngridientProps, index: number) => (
-              <div key={burgerElement.namber} className={`${styles.wrap_item}`}>
-                <BurgerElement
-                  index={index}
-                  // @ts-ignore
-                  moveCard={moveCard}
-                  burgerElement={burgerElement}
-                />
-              </div>
-            ))}
+            {burgerElement.map(
+              (burgerElement: TIngridientProps, index: number) => (
+                <div
+                  key={burgerElement.namber}
+                  className={`${styles.wrap_item}`}>
+                  <BurgerElement
+                    index={index}
+                    // @ts-ignore
+                    moveCard={moveCard}
+                    burgerElement={burgerElement}
+                  />
+                </div>
+              )
+            )}
           </div>
 
           <div ref={dropBunBottom}>
@@ -200,7 +195,11 @@ function BurgerConstructor(props: TBurgerConstructor): React.JSX.Element {
 
       {orderLoading && (
         <Modal onClose={props.onClose} title={''}>
-          {orderNumber ? <OrderDetails orderNumber={orderNumber} /> : (<Preloader/>)}
+          {orderNumber ? (
+            <OrderDetails orderNumber={orderNumber} />
+          ) : (
+            <Preloader />
+          )}
         </Modal>
       )}
     </>

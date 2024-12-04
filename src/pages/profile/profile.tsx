@@ -1,12 +1,14 @@
-import React, {ChangeEvent, FormEvent} from "react";
+import React, { ChangeEvent, FormEvent } from 'react';
 
 import styles from './profile.module.css';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
 
 import { useDispatch } from 'react-redux';
+
+import { WS_USER_RESET_ORDERS } from '../../services/actions/user-socket-orders';
 
 import {
   Input,
@@ -45,17 +47,22 @@ function Profile(): React.JSX.Element {
   function onClickExit() {
     //@ts-ignore
     dispatch(logoutUser());
+    dispatch({
+      type: WS_USER_RESET_ORDERS,
+    });
   }
 
   function onCancel() {
     setValues({ ...user, password: '' });
   }
 
+  const location  = useLocation();
+
   return (
     <main className={`${styles.content} pb-10`}>
       <div className={`${styles.wrap_link}`}>
         <NavLink
-          to='/profile'
+          to='/profile' end
           className={({ isActive }) =>
             isActive
               ? `${styles.link} ${styles.link_active} text text_type_main-medium mt-4 mb-4`
@@ -84,52 +91,58 @@ function Profile(): React.JSX.Element {
         </NavLink>
       </div>
 
-      <form onSubmit={onClick}>
-        <Input
-          type={'text'}
-          placeholder={'Имя'}
-          //@ts-ignore
-          icon={false}
-          name={'name'}
-          error={false}
-          errorText={'Ошибка'}
-          size={'default'}
-          extraClass='mb-6'
-          onChange={handleChange}
-          value={values.name}
-        />
-        <EmailInput
-          name={'email'}
-          isIcon={false}
-          extraClass='mb-6'
-          onChange={handleChange}
-          value={values.email}
-        />
-        <PasswordInput
-          name={'password'}
-          extraClass='mb-6'
-          onChange={handleChange}
-          value={values.password}
-        />
-        {values.name !== user.name ||
-        values.email !== user.email ||
-        values.password ? (
-          <div className={styles.but_wrap}>
-            <Button htmlType='button' type='secondary' size='medium' onClick={onCancel}>
-              Отмена
-            </Button>
+      {(location.pathname === '/profile/orders') ? (
+        <Outlet />
+      ) : (
+        <form className={`${styles.wrap_form}`} onSubmit={onClick}>
+          <Input
+            type={'text'}
+            placeholder={'Имя'}
+            //@ts-ignore
+            icon={false}
+            name={'name'}
+            error={false}
+            errorText={'Ошибка'}
+            size={'default'}
+            extraClass='mb-6'
+            onChange={handleChange}
+            value={values.name}
+          />
+          <EmailInput
+            name={'email'}
+            isIcon={false}
+            extraClass='mb-6'
+            onChange={handleChange}
+            value={values.email}
+          />
+          <PasswordInput
+            name={'password'}
+            extraClass='mb-6'
+            onChange={handleChange}
+            value={values.password}
+          />
+          {values.name !== user.name ||
+          values.email !== user.email ||
+          values.password ? (
+            <div className={styles.but_wrap}>
+              <Button
+                htmlType='button'
+                type='secondary'
+                size='medium'
+                onClick={onCancel}>
+                Отмена
+              </Button>
 
-            <Button
-              htmlType='submit'
-              type='primary'
-              size='medium'>
-              Сохранить
-            </Button>
-          </div>
-        ) : (
-          <></>
-        )}
-      </form>
+              <Button htmlType='submit' type='primary' size='medium'>
+                Сохранить
+              </Button>
+            </div>
+          ) : (
+            <></>
+          )}
+        </form>
+
+      )}
     </main>
   );
 }

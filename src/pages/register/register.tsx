@@ -3,7 +3,7 @@ import React, { FormEvent } from "react";
 import { Link } from 'react-router-dom';
 import styles from './register.module.css';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../utils/hook';
 
 import { useForm } from '../../hooks/useForm'
 
@@ -24,7 +24,6 @@ function Register(): React.JSX.Element {
 
   function onClick(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    //@ts-ignore
     dispatch(registerUser(values));
   }
 

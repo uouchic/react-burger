@@ -4,13 +4,16 @@ import {
 } from '../actions/userAuth';
 
 
+import type { IUserAuthAction } from '../actions/userAuth';
+
+
 const initialState = {
     user: null,
     isAuthChecked: false,
 };
 
 
-export const userRegisterReducer = (state = initialState, action) => {
+export const userRegisterReducer = (state = initialState, action: IUserAuthAction) => {
 
     switch (action.type) {
 

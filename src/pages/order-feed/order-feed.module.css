@@ -1,0 +1,29 @@
+.content {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.two_columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 40px;
+}
+
+.order_link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.list_feeds {
+  height: 726px;
+  overflow-y: scroll;
+}
+
+.details_orders {
+}
+
+.two_columns_numbers_orders {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 40px;
+}
