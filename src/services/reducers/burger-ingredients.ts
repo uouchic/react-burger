@@ -6,17 +6,27 @@ import {
 
 import type { TBurgerIngredients } from '../actions/burger-ingredients';
 
+import type { TIngridientProps } from '../../utils/types';
 
 
-const initialState = {
+type TBurgerIngredientsState = {
+    
+    allBurgerIngredients: TIngridientProps
+    burgerIngredientsRequest: boolean,
+    burgerIngredientsFailed: boolean,
+  };
 
+
+
+const initialState: TBurgerIngredientsState = {
+//@ts-ignore
     allBurgerIngredients: [],
     burgerIngredientsRequest: false,
     burgerIngredientsFailed: false,
 
 };
 
-export const burgerIngredientsReducer = (state = initialState, action: TBurgerIngredients) => {
+export const burgerIngredientsReducer = (state = initialState, action: TBurgerIngredients): TBurgerIngredientsState => {
 
     switch (action.type) {
 

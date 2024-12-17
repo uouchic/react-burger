@@ -38,4 +38,10 @@ export type TOrder = {
   __v: number;
 };
 
+export type TUser = {  
+  name: string;
+  email: string;
+  };
+  
+
 export default IngredientType;

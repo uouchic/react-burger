@@ -10,8 +10,6 @@ import { compose, createStore, applyMiddleware } from 'redux';
 
 import { socketMiddleware } from './services/middleware/socket-middleware';
 
-import { userSocketMiddleware } from './services/middleware/user-socket-middleware';
-
 import { rootReducer } from './services/reducers/index';
 
 import { Provider } from 'react-redux';
@@ -19,6 +17,50 @@ import { Provider } from 'react-redux';
 import { thunk } from 'redux-thunk';
 
 import { IntlProvider } from 'react-intl';
+
+
+////////////////////////-------------------------------////////////////////////////
+
+
+import { WS_CONNECTION_START } from './services/actions/socket-orders';
+import { WS_GET_ORDERS } from './services/actions/socket-orders';
+
+import { WS_USER_CONNECTION_START } from './services/actions/user-socket-orders';
+import { WS_USER_GET_ORDERS } from './services/actions/user-socket-orders';
+
+
+export type TWSStoreActionsOrders = {
+  wsInit: typeof  WS_CONNECTION_START,
+  onMessage: typeof  WS_GET_ORDERS,
+
+};
+
+export type TWSStoreActionsUserOrders = {
+  wsInit: typeof  WS_USER_CONNECTION_START,
+  onMessage: typeof  WS_USER_GET_ORDERS,
+
+};
+
+
+const wsOrderActions: TWSStoreActionsOrders = {
+  wsInit: WS_CONNECTION_START,
+  onMessage: WS_GET_ORDERS
+  
+};
+
+
+const wsUserOrderActions: TWSStoreActionsUserOrders = {
+  wsInit: WS_USER_CONNECTION_START,
+  onMessage: WS_USER_GET_ORDERS
+  
+};
+
+
+
+
+/////////////////////////////////-----------------------//////////////////////////
+
+
 
 //const accessToken = (String(localStorage.getItem('accessToken')).split(' '))[1];
 
@@ -32,10 +74,8 @@ const composeEnhancers =
 const enhancer = composeEnhancers(
   applyMiddleware(
     thunk,
-    socketMiddleware('wss://norma.nomoreparties.space/orders/all'),
-    userSocketMiddleware(
-      `wss://norma.nomoreparties.space/orders`
-    )
+    socketMiddleware(wsOrderActions),
+    socketMiddleware(wsUserOrderActions)
   )
 );
 

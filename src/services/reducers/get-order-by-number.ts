@@ -2,14 +2,26 @@ import {
     GET_ORDER_BY_NUMBER,
 } from '../actions/get-order-by-number';
 
+
+
 import type { IGetOrderByNumberAction } from '../actions/get-order-by-number';
 
+import type { TOrder } from '../../utils/types';
 
-const initialState = {
+
+
+
+type TOrderByNumberState = {
+    
+    orders: TOrder[],
+  };
+
+
+const initialState: TOrderByNumberState = {
     orders: [],
 };
 
-export const getOrderByNumber = (state = initialState, action: IGetOrderByNumberAction) => {
+export const getOrderByNumber = (state = initialState, action: IGetOrderByNumberAction): TOrderByNumberState => {
 
     switch (action.type) {
 

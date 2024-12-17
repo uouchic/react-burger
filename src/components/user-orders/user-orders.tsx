@@ -32,7 +32,7 @@ function UserOrders() {
     burgerUserOrders: store.userSocketOrdersReducer,
   }));
 
-  console.log(burgerUserOrders);
+  //console.log(burgerUserOrders);
 
   return (
     <div className={`${styles.column}`}>
@@ -40,6 +40,7 @@ function UserOrders() {
         .filter((s) => s.status === 'done')
         .map((cardOrder, index) => (
           <Link
+          key={index}
           to={`/profile/orders/${cardOrder.number}`}
           state={{ background: location }}
           className={styles.order_link}>

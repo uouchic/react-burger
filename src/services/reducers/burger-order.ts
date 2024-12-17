@@ -7,7 +7,14 @@ import {
 import type { TBurgerOrder } from '../actions/burger-order';
 
 
-const initialState = {
+
+type TorderBurgerState = {
+    orderNumber: number | string,
+    orderLoading: boolean,
+  };
+
+
+const initialState: TorderBurgerState = {
 
     orderNumber: '',
     orderLoading: false,
@@ -15,7 +22,7 @@ const initialState = {
 
 };
 
-export const orderBurger = (state = initialState, action: TBurgerOrder) => {
+export const orderBurger = (state = initialState, action: TBurgerOrder): TorderBurgerState => {
 
     switch (action.type) {
 
@@ -28,7 +35,7 @@ export const orderBurger = (state = initialState, action: TBurgerOrder) => {
         case CLOSE_BURGER_ORDER: {
             return {
                 ...state,
-                orderNumber: null,
+                orderNumber: '',
             };
         }
         case LOADING_BURGER_ORDER: {

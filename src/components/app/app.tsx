@@ -87,14 +87,11 @@ function App(): React.JSX.Element {
   useEffect(() => {
     dispatch({
       type: WS_CONNECTION_START,
+      payload: 'wss://norma.nomoreparties.space/orders/all'
     });
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch({
-      type: WS_USER_CONNECTION_START,
-    });
-  }, [dispatch]);
+
 
   const { burgerIngredientsRequest, burgerIngredientsFailed } = useSelector(
     (store) => ({

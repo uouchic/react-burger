@@ -2,13 +2,24 @@ import { WS_USER_GET_ORDERS, WS_USER_RESET_ORDERS } from '../actions/user-socket
 
 import type { TWsUserOrdersActions } from '../actions/user-socket-orders';
 
-const initialState = {
+import type { TOrder } from '../../utils/types';
+
+
+
+type TUserSocketOrdersState = {
+    
+    total: string,
+    totalToday: string,
+    ordersUser: TOrder[],
+  };
+
+const initialState: TUserSocketOrdersState = {
     total: '',
     totalToday: '',
     ordersUser: [],
 }
 
-export const userSocketOrdersReducer = (state = initialState, action: TWsUserOrdersActions) => {
+export const userSocketOrdersReducer = (state = initialState, action: TWsUserOrdersActions): TUserSocketOrdersState => {
     switch (action.type) {
         case WS_USER_GET_ORDERS: {
             return {

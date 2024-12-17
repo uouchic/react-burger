@@ -1,14 +1,14 @@
-import React, { ChangeEvent, FormEvent } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect } from 'react';
 
 import styles from './profile.module.css';
 
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
-
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../utils/hook';
 
 import { WS_USER_RESET_ORDERS } from '../../services/actions/user-socket-orders';
+
+import { WS_USER_CONNECTION_START } from '../../services/actions/user-socket-orders';
 
 import {
   Input,
@@ -58,6 +58,16 @@ function Profile(): React.JSX.Element {
 
   const location  = useLocation();
 
+    const accessToken = localStorage.getItem('accessToken');
+  
+    useEffect(() => {
+      dispatch({
+        type: WS_USER_CONNECTION_START,
+        //@ts-ignore
+        payload: `wss://norma.nomoreparties.space/orders?token=${accessToken.replace('Bearer ', '')}`
+      });
+    }, [dispatch, accessToken]);
+
   return (
     <main className={`${styles.content} pb-10`}>
       <div className={`${styles.wrap_link}`}>
@@ -106,6 +116,7 @@ function Profile(): React.JSX.Element {
             size={'default'}
             extraClass='mb-6'
             onChange={handleChange}
+            //@ts-ignore
             value={values.name}
           />
           <EmailInput
@@ -113,6 +124,7 @@ function Profile(): React.JSX.Element {
             isIcon={false}
             extraClass='mb-6'
             onChange={handleChange}
+            //@ts-ignore
             value={values.email}
           />
           <PasswordInput
@@ -121,8 +133,13 @@ function Profile(): React.JSX.Element {
             onChange={handleChange}
             value={values.password}
           />
-          {values.name !== user.name ||
-          values.email !== user.email ||
+          
+          {values.name !== 
+          //@ts-ignore
+          user.name ||
+          values.email !== 
+          //@ts-ignore
+          user.email ||
           values.password ? (
             <div className={styles.but_wrap}>
               <Button
