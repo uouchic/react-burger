@@ -1,12 +1,8 @@
 import React from 'react';
 
-//import {FormattedDate} from 'react-intl'
-
 import styles from './card-order.module.css';
 
-//import { useSelector } from 'react-redux';
-
-import { useSelector, useDispatch } from '../../utils/hook';
+import { useSelector } from '../../utils/hook';
 
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
