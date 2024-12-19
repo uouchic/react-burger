@@ -1,7 +1,7 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../../utils/hook';
 
 import { useParams } from 'react-router-dom';
 
@@ -16,13 +16,12 @@ function IngredientDetails(): React.JSX.Element {
 
   const { allBurgerIngredients } = useSelector(
     (store) => ({
-      // @ts-ignore
       allBurgerIngredients: store.burgerIngredients.allBurgerIngredients,
     })
   );
 
   const { ingredientId } = useParams();
-
+//@ts-ignore
   const objIng = allBurgerIngredients.filter((ing: TIngridientProps) => ing._id === ingredientId);
 
 

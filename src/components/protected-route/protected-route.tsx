@@ -1,15 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../utils/hook';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import Preloader from '../preloader/preloader';
  //@ts-ignore
 const Protected = ({ onlyUnAuth = false, component }) => {
   const isAuthChecked = useSelector(
-    //@ts-ignore
     (store) => store.userRegister.isAuthChecked
   );
-  //@ts-ignore
+
   const user = useSelector((store) => store.userRegister.user);
   const location = useLocation();
 

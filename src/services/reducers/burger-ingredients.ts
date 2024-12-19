@@ -4,15 +4,29 @@ import {
     GET_BURGER_INGREDIENTS_FAILED
 } from '../actions/burger-ingredients';
 
-const initialState = {
+import type { TBurgerIngredients } from '../actions/burger-ingredients';
 
+import type { TIngridientProps } from '../../utils/types';
+
+
+type TBurgerIngredientsState = {
+    
+    allBurgerIngredients: TIngridientProps
+    burgerIngredientsRequest: boolean,
+    burgerIngredientsFailed: boolean,
+  };
+
+
+
+const initialState: TBurgerIngredientsState = {
+//@ts-ignore
     allBurgerIngredients: [],
     burgerIngredientsRequest: false,
     burgerIngredientsFailed: false,
 
 };
 
-export const burgerIngredientsReducer = (state = initialState, action) => {
+export const burgerIngredientsReducer = (state = initialState, action: TBurgerIngredients): TBurgerIngredientsState => {
 
     switch (action.type) {
 

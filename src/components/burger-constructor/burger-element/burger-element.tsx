@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useRef } from 'react'
 
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../../utils/hook';
 
 import { useDrop, useDrag } from 'react-dnd';
 
@@ -50,6 +50,7 @@ function BurgerElement(props: TBurgerElement): React.JSX.Element {
     const dispatch = useDispatch();
 
     const handleClose = () => {
+        // @ts-ignore
         dispatch({
             type: DEL_BURGER_ELEMENT,
             id: props.burgerElement.namber,

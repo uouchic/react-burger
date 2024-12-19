@@ -1,15 +1,26 @@
 import { SELECT_BURGER_INGREDIENT, DELETE_BURGER_INGREDIENT } from '../actions/burger-ingredient';
 
-const initialState = {
+import type { TBurgerIngredientActions } from '../actions/burger-ingredient';
+
+type TSelectBurgerState = {
+    name: string,
+    proteins: number,
+    fat: number,
+    carbohydrates: number,
+    calories: number,
+    image: string,
+  };
+
+const initialState: TSelectBurgerState = {
     name: '',
-    proteins: null,
-    fat: null,
-    carbohydrates: null,
-    calories: null,
+    proteins: 0,
+    fat: 0,
+    carbohydrates: 0,
+    calories: 0,
     image: '',
 }
 
-export const selectBurgerIngredientReducer = (state = initialState, action) => {
+export const selectBurgerIngredientReducer = (state = initialState, action: TBurgerIngredientActions): TSelectBurgerState => {
     switch (action.type) {
         case SELECT_BURGER_INGREDIENT: {
             return {
@@ -24,10 +35,10 @@ export const selectBurgerIngredientReducer = (state = initialState, action) => {
         case DELETE_BURGER_INGREDIENT: {
             return {
                 name: '',
-                proteins: '',                
-                fat: '',
-                carbohydrates: '',
-                calories: '',
+                proteins: 0,                
+                fat: 0,
+                carbohydrates: 0,
+                calories: 0,
                 image: '',
             };
         }

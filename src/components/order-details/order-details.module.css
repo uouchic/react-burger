@@ -1,0 +1,76 @@
+.order_contain {
+    width: 640px;
+
+}
+.order_number {
+    text-align: center;
+
+}
+
+.order_name {
+
+}
+
+.order_status {
+
+}
+
+.order_subtitle {
+
+}
+
+.order_ingredient_wrap {
+    height: 360px;
+    overflow-y: scroll;
+
+}
+
+.order_ingredients_wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.order_wrap {
+    display: flex;
+    align-items: center;
+
+}
+
+.order_ingredients_img {
+    width: 64px;
+    height: 64px;
+    background-color: #1c1c21;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #7821bd;
+    
+
+}
+
+.order_ingredients_name {
+    
+
+}
+
+.order_ingredients_price {
+    
+
+}
+
+.order_ingredients_date_wrap {
+    
+
+}
+
+.order_ingredients_date {
+    
+
+}
+
+
+.order_ingredients_total_price {
+    
+
+}
