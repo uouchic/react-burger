@@ -14,7 +14,7 @@ type TBurgerElementState = {
   burgerElement: ReadonlyArray<TIngridientProps>;
 };
 
-const initialState: TBurgerElementState = {
+export const initialState: TBurgerElementState = {
   bun: {
     calories: 0,
     carbohydrates: 0,

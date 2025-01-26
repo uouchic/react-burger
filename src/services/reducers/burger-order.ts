@@ -14,7 +14,7 @@ type TorderBurgerState = {
   };
 
 
-const initialState: TorderBurgerState = {
+export const initialState: TorderBurgerState = {
 
     orderNumber: '',
     orderLoading: false,

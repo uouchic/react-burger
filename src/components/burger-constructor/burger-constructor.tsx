@@ -135,7 +135,7 @@ function BurgerConstructor(props: TBurgerConstructor): React.JSX.Element {
     <>
       <div>
         <section className={`${styles.section} mt-25`}>
-          <div ref={dropBunTop}>
+          <div ref={dropBunTop} data-testing='bun-top-drag'>
             <ConstructorElement
               extraClass={'ml-8'}
               type='top'
@@ -147,6 +147,7 @@ function BurgerConstructor(props: TBurgerConstructor): React.JSX.Element {
           </div>
 
           <div
+          data-testing='ing-drop'
             ref={dropIngredients}
             className={`${styles.wrap_items} mt-4 mb-4`}>
             {burgerElement.map(
@@ -165,7 +166,7 @@ function BurgerConstructor(props: TBurgerConstructor): React.JSX.Element {
             )}
           </div>
 
-          <div ref={dropBunBottom}>
+          <div ref={dropBunBottom} data-testing='bun-bottom-drag'>
             <ConstructorElement
               extraClass={'ml-8 mb-10'}
               type='bottom'

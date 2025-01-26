@@ -15,7 +15,7 @@ type TUserRegisterState = {
   };
 
 
-const initialState: TUserRegisterState = {
+export const initialState: TUserRegisterState = {
     user: {name: '', email: ''},
     isAuthChecked: false,
 };

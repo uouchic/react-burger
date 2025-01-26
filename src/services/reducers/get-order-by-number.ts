@@ -17,7 +17,7 @@ type TOrderByNumberState = {
   };
 
 
-const initialState: TOrderByNumberState = {
+export const initialState: TOrderByNumberState = {
     orders: [],
 };
 

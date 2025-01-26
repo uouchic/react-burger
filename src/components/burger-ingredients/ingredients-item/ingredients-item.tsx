@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { useLocation } from 'react-router-dom';
 
-import { TIngridientProps } from '../../../utils/types'
+import { TIngridientProps } from '../../../utils/types';
 
 import { useSelector, useDispatch } from '../../../utils/hook';
 
@@ -22,7 +22,6 @@ type TIngredientsItemProps = {
 };
 
 function IngredientsItem(props: TIngredientsItemProps): React.JSX.Element {
-
   const location = useLocation();
 
   const { burgerElements, bun } = useSelector((store) => ({
@@ -37,13 +36,14 @@ function IngredientsItem(props: TIngredientsItemProps): React.JSX.Element {
 
   return (
     <Link
+      data-testing='link'
       to={`/ingredients/${props.ingridient._id}`}
       state={{ background: location }}
       className={styles.card_link}>
       <article
+        data-testing='article'
         ref={dragRef}
-        className={`${styles.cart} pb-6`}
-        >
+        className={`${styles.cart} pb-6`}>
         <img
           className={`${styles.cart_image} ml-4`}
           src={props.ingridient.image}
@@ -64,8 +64,8 @@ function IngredientsItem(props: TIngredientsItemProps): React.JSX.Element {
         <Counter
           count={
             props.ingridient.type === 'bun'
-            //@ts-ignore
-              ? [bun].filter((item) => item._id === props.ingridient._id)
+              ? //@ts-ignore
+                [bun].filter((item) => item._id === props.ingridient._id)
                   .length * 2
               : burgerElements.filter(
                   (item: TIngridientProps) => item._id === props.ingridient._id
