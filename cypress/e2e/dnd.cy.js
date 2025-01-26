@@ -3,7 +3,7 @@
 
 describe('dnd ingredient', function () {
     beforeEach(function () {
-        cy.visit('http://localhost:3000');
+        cy.visit('');
     });
 
     it('drag bun top', function () {
@@ -24,15 +24,17 @@ describe('dnd ingredient', function () {
 
 
     it('drag ingr', function () {
+        cy.get('[data-testing=article]').as('dragIngredients'); 
+        cy.get('[data-testing=ing-drop]').as('dropElement');
         cy.wait(2000);
-        cy.get('[data-testing=article]').eq(8).trigger('dragstart');
-        cy.get('[data-testing=ing-drop]').trigger('drop');
+        cy.get('@dragIngredients').eq(8).trigger('dragstart');
+        cy.get('@dropElement').trigger('drop');
         cy.wait(2000);
-        cy.get('[data-testing=article]').eq(8).trigger('dragstart');
-        cy.get('[data-testing=ing-drop]').trigger('drop');
+        cy.get('@dragIngredients').eq(8).trigger('dragstart');
+        cy.get('@dropElement').trigger('drop');
         cy.wait(2000);
-        cy.get('[data-testing=article]').eq(4).trigger('dragstart');
-        cy.get('[data-testing=ing-drop]').trigger('drop')
+        cy.get('@dragIngredients').eq(4).trigger('dragstart');
+        cy.get('@dropElement').trigger('drop')
     });
 
     

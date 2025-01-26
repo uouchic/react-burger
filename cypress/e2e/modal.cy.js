@@ -5,7 +5,7 @@ describe('modal ingredient open close', function () {
 
 
     beforeEach(function () {
-        cy.visit('http://localhost:3000');
+        cy.visit('');
     });
 
 
