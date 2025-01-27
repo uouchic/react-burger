@@ -11,7 +11,7 @@ type TSelectBurgerState = {
     image: string,
   };
 
-const initialState: TSelectBurgerState = {
+export const initialState: TSelectBurgerState = {
     name: '',
     proteins: 0,
     fat: 0,

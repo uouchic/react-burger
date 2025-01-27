@@ -14,7 +14,7 @@ type TSocketOrdersState = {
   };
 
 
-const initialState: TSocketOrdersState = {
+export const initialState: TSocketOrdersState = {
     total: '',
     totalToday: '',
     orders: [],

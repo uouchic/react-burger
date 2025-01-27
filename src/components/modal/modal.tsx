@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import React, { MouseEvent } from 'react';
 import { useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 
@@ -13,7 +13,6 @@ type TModal = {
 };
 
 function Modal(props: TModal): React.JSX.Element {
-
   const modalRoot = document.getElementById('modal')!;
 
   const overlayClose = (e: MouseEvent<HTMLDivElement>) => {
@@ -34,21 +33,18 @@ function Modal(props: TModal): React.JSX.Element {
   }, []);
 
   return ReactDOM.createPortal(
-    <div className={styles.overlay} onClick={overlayClose}>
+    <div className={styles.overlay} onClick={overlayClose} data-testing='close-overlay'>
       <div className={`${styles.modal_ingr} pt-10 pb-15`}>
         <h2 className='text text_type_main-large ml-10'>{props.title}</h2>
-        
-        
+
         {props.children}
 
-        <CloseIcon
-          className={`${styles.modal_close}`}
-          type='primary'
-          onClick={props.onClose}
-        />
+        <div data-testing='close-cross' className={`${styles.modal_close}`}>
+          <CloseIcon type='primary' onClick={props.onClose} />
+        </div>
       </div>
     </div>,
-    
+
     modalRoot
   );
 }

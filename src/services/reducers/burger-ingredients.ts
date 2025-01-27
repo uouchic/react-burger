@@ -18,7 +18,7 @@ type TBurgerIngredientsState = {
 
 
 
-const initialState: TBurgerIngredientsState = {
+export const initialState: TBurgerIngredientsState = {
 //@ts-ignore
     allBurgerIngredients: [],
     burgerIngredientsRequest: false,

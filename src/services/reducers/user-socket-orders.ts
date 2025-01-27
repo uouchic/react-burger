@@ -13,7 +13,7 @@ type TUserSocketOrdersState = {
     ordersUser: TOrder[],
   };
 
-const initialState: TUserSocketOrdersState = {
+export const initialState: TUserSocketOrdersState = {
     total: '',
     totalToday: '',
     ordersUser: [],
